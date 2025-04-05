@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbvkks66ijlj4"]
+
+[ext_resource type="Script" uid="uid://d2fiunidkcbaj" path="res://Scripts/rope.gd" id="1_cjseh"]
+[ext_resource type="PackedScene" uid="uid://dl6wfctuqe15" path="res://Scenes/rope/rope_end.tscn" id="2_o4axc"]
+
+[node name="rope" type="Node2D"]
+script = ExtResource("1_cjseh")
+
+[node name="ropeStart" parent="." instance=ExtResource("2_o4axc")]
+position = Vector2(39, 52)
+
+[node name="ropeEnd" parent="." instance=ExtResource("2_o4axc")]
+position = Vector2(116, 51)

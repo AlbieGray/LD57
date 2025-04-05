@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://de0pnr7kq51b3"]
+
+[ext_resource type="Script" uid="uid://c65s215pn81mb" path="res://rope_canvas.gd" id="1_rxvlc"]
+
+[node name="ropeCanvas" type="Node2D"]
+script = ExtResource("1_rxvlc")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(0, 256, 256, 256, 320, 192, 448, 192, 512, 256, 512, 320, 256, 320, 0, 320)
+
+[node name="CollisionPolygon2D2" type="Polygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(0, 256, 256, 256, 320, 192, 448, 192, 512, 256, 512, 320, 256, 320, 0, 320)

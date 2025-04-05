@@ -65,7 +65,7 @@ func make_room() -> void:
 		room_path_node.curve.set_point_position(i, room_path_node.curve.get_point_position(i)-make_room_offset)
 	print(make_room_offset)
 
-func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_area_2d_body_shape_entered(body_rid: RID, body: TileMapLayer, body_shape_index: int, local_shape_index: int) -> void:
 	
 	var coords = body.get_coords_for_body_rid(body_rid)
 	body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(1, 0))
