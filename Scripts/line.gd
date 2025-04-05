@@ -1,10 +1,6 @@
 extends Node2D
 
-@onready var line = $Line2D
-@onready var path = $digPath
-@onready var follow = $digPath/followPath
-@onready var sprite = $digPath/followPath/Ant/Sprite2D
-@export var speed = 200
+
 
 var mouse_pos = null
 

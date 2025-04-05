@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://qjo51es7hbnr"]
+[gd_scene load_steps=6 format=3 uid="uid://qjo51es7hbnr"]
 
 [ext_resource type="Script" uid="uid://qqo26vx2bish" path="res://Scripts/ant.gd" id="1_yahas"]
 [ext_resource type="Texture2D" uid="uid://bhm5cbnlvkisa" path="res://icon.svg" id="2_y1ll1"]
@@ -11,6 +11,8 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 228, 211, 0, 0, 0, 0, 332, 210, 0, 0, 0, 0, 298, 147, 0, 0, 0, 0, 182, 152, 0, 0, 0, 0, 185, 212, 0, 0, 0, 0, 136, 212, 0, 0, 0, 0, 64, 214, 0, 0, 0, 0, 110, 143, 0, 0, 0, 0, 189, 96, 0, 0, 0, 0, 376, 100, 0, 0, 0, 0, 437, 211)
 }
 point_count = 11
+
+[sub_resource type="Curve2D" id="Curve2D_c1ub6"]
 
 [node name="ant" type="CharacterBody2D"]
 collision_layer = 2
@@ -37,5 +39,14 @@ curve = SubResource("Curve2D_7lpof")
 position = Vector2(267.986, 210.616)
 rotation = -0.00961509
 progress = 40.0
+
+[node name="DigPath" type="Node2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="DigPath"]
+
+[node name="digPath" type="Path2D" parent="DigPath"]
+curve = SubResource("Curve2D_c1ub6")
+
+[node name="followPath" type="PathFollow2D" parent="DigPath/digPath"]
 
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

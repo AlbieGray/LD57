@@ -1,18 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctsdok0e1krnr"]
+[gd_scene load_steps=4 format=3 uid="uid://djttmr6a5vrbx"]
 
-[ext_resource type="Script" uid="uid://ohpt11vt4ro" path="res://dig_path.gd" id="1_sb48q"]
-[ext_resource type="Script" uid="uid://cbn1ywpovbjjs" path="res://line.gd" id="1_u44n3"]
-[ext_resource type="PackedScene" uid="uid://bubl7dliemgyf" path="res://ant.tscn" id="3_u44n3"]
+[ext_resource type="Script" uid="uid://cbn1ywpovbjjs" path="res://Scripts/line.gd" id="1_u44n3"]
+[ext_resource type="PackedScene" uid="uid://bpvwyby0c0t0r" path="res://ant.tscn" id="3_u44n3"]
 
 [sub_resource type="Curve2D" id="Curve2D_sb48q"]
 
 [node name="game" type="Node"]
 
 [node name="followPath" type="Node2D" parent="."]
-script = ExtResource("1_sb48q")
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("1_u44n3")
+speed = null
 
 [node name="Line2D" type="Line2D" parent="Node2D"]
 
