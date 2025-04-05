@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bubl7dliemgyf"]
+
+[ext_resource type="Script" uid="uid://ca4uvpof71cw4" path="res://antFollow.gd" id="1_5tacl"]
+[ext_resource type="Texture2D" uid="uid://bhm5cbnlvkisa" path="res://icon.svg" id="2_q4ieg"]
+
+[node name="Ant" type="CharacterBody2D"]
+position = Vector2(574, 326)
+script = ExtResource("1_5tacl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -4.54747e-13)
+scale = Vector2(0.757812, 0.617188)
+texture = ExtResource("2_q4ieg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
