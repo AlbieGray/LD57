@@ -2,18 +2,19 @@ extends CharacterBody2D
 
 enum state{idle, following_path,}
 var current_path_follow:PathFollow2D = null
-var make_room_start_pos:Vector2 = Vector2(0, 0)
+var make_room_offset:Vector2 = Vector2(0, 0)
 
 @export var speed = 200
 @onready var followPath = $DigPath/digPath/followPath
-@onready var digPath = $"../Node2D/digPath"
 
-@onready var line = $DigPath/Line2D
+var line = null
 @onready var path = $DigPath/digPath
 @onready var follow = $DigPath/digPath/followPath
-@onready var sprite = $DigPath/digPath/followPath/Ant/Sprite2D
+
+var room_path = preload("res://Scenes/room_path.tscn")
 
 var mouse_pos = null
+var drawing = false
 
 
 func _ready() -> void:
@@ -22,27 +23,29 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 	
-	if Input.is_action_pressed("leftMouse", true):
-		var direction = (mouse_pos - position).normalized()
-		velocity = direction*speed
-	else: 
-		velocity = Vector2(0,0)
-	
 	 # path following
 	if current_path_follow != null:
-		current_path_follow.progress += 1
-		position = make_room_start_pos + current_path_follow.position
-	if Input.is_action_pressed("make_room"):
+		current_path_follow.progress += delta*speed
+		position = current_path_follow.position
+	if Input.is_action_just_pressed("make_room"):
 		make_room()
 	
+	if Input.is_action_just_pressed("leftMouse"):
+		print(mouse_pos.distance_to(position))
+		if mouse_pos.distance_to(position) < 15:
+			drawing = true
+	
+	# making line and path
 	mouse_pos = get_global_mouse_position()
-	if Input.is_action_pressed("leftMouse"):
+	if drawing and Input.is_action_pressed("leftMouse"):
 		if path.curve.get_baked_points().size() == 0 or mouse_pos.distance_to(path.curve.get_closest_point(mouse_pos)) != 0:
 			path.curve.add_point(mouse_pos)
 			line.add_point(mouse_pos)
-	else:
+	elif Input.is_action_just_released("leftMouse"):
+		drawing = false
 		line.clear_points()
 		current_path_follow = $DigPath/digPath/followPath
+		current_path_follow.loop = false
 		
 		
 	if Input.is_action_just_released("leftMouse"):
@@ -51,8 +54,16 @@ func _process(delta: float) -> void:
 
 
 func make_room() -> void:
-	current_path_follow = $RoomPath/PathFollow2D
-	make_room_start_pos = current_path_follow.position-position
+	var room_path_node = room_path.instantiate()
+	add_child(room_path_node)
+	
+	current_path_follow = room_path_node.get_node("PathFollow2D")
+	current_path_follow.loop = false
+	make_room_offset = current_path_follow.position-position
+	
+	for i in range(room_path_node.curve.point_count):
+		room_path_node.curve.set_point_position(i, room_path_node.curve.get_point_position(i)-make_room_offset)
+	print(make_room_offset)
 
 func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	

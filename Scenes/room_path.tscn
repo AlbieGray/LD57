@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://biw7hrm8bmrxe"]
+
+[sub_resource type="Curve2D" id="Curve2D_sol8d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 280, 211, 0, 0, 0, 0, 332, 210, 0, 0, 0, 0, 298, 147, 0, 0, 0, 0, 209, 166, 0, 0, 0, 0, 279, 210, 0, 0, 0, 0, 136, 212, 0, 0, 0, 0, 183, 155, 0, 0, 0, 0, 212, 125, 0, 0, 0, 0, 280.043, 105.326, 0, 0, 0, 0, 357, 133, 0, 0, 0, 0, 417, 210, 0, 0, 0, 0, 281, 210)
+}
+point_count = 12
+
+[node name="RoomPath" type="Path2D"]
+position = Vector2(-250, -200)
+curve = SubResource("Curve2D_sol8d")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(319.996, 210.231)
+rotation = -0.0192284
+progress = 40.0
