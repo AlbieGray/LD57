@@ -13,21 +13,32 @@ var tilemap = null
 var current_path = path
 @onready var follow = $DigPath/digPath/followPath
 
+var display_name = "unnamed"
+
 var room_path = preload("res://Scenes/room_path.tscn")
 
 var mouse_pos = null
 var drawing = false
-var selected = true
+var selected = false
 var pathfinding = false
+var text_fading = false
+var making_room = false
+var digging = true
 
+const ant_names_script = preload("res://Scripts/ant_names.gd")
 
+func _ready():
+	var first_names = ant_names_script.new().first_names
+	var second_names = ant_names_script.new().second_names
+	display_name = first_names.pick_random() + " " + second_names.pick_random()
+	$NameTag.text = display_name
 
 func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 	
 	# detect if clicked
 	if Input.is_action_just_pressed("rightMouse"):
-		if mouse_pos.distance_to(position) < 15:
+		if selected and mouse_pos.distance_to(position) < 15:
 			drawing = true
 			print("started drawing")
 	
@@ -36,17 +47,30 @@ func _process(delta: float) -> void:
 			selected = false
 		elif mouse_pos.distance_to(position) < 15:
 			selected = true
+			get_parent().selected_ant = self
 			print("just selected")
 		else:
 			selected = false
 		$SelectedRing.visible = selected
 	
 	 # path following
-	if current_path_follow != null:
+	if digging and selected and current_path_follow != null:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
+		#print(path.curve)
+		if current_path_follow.progress_ratio >= 1:# and path.curve.point_count > 0:
+			digging = false
+			print("finished following path")
+			path.curve.clear_points()
+			#current_path_follow = null
 	
-	if Input.is_action_just_pressed("make_room"):
+	if making_room:
+		current_path_follow.progress += delta*speed
+		position = current_path_follow.position
+		if current_path_follow.progress_ratio >= 1:
+			making_room = false
+	
+	if selected and Input.is_action_just_pressed("make_room"):
 		make_room()
 	
 	
@@ -54,6 +78,7 @@ func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 	if drawing and Input.is_action_pressed("rightMouse"):
 		if path.curve.get_baked_points().size() == 0 or mouse_pos.distance_to(path.curve.get_closest_point(mouse_pos)) != 0:
+			digging = true
 			path.curve.add_point(mouse_pos)
 			line.add_point(mouse_pos)
 			current_path_follow = $DigPath/digPath/followPath
@@ -64,6 +89,7 @@ func _process(delta: float) -> void:
 		drawing = false
 		print("ending drawing")
 		line.clear_points()
+		
 		
 	
 	elif selected and not drawing and Input.is_action_just_released("rightMouse"):
@@ -93,22 +119,42 @@ func _process(delta: float) -> void:
 			pathfinding = false
 			velocity = Vector2(0,0)
 	
+	
+	if text_fading:
+		$Speech.modulate = Color(255, 255, 255, 10*($VoicelineFadeout.time_left/$VoicelineFadeout.wait_time))
+
 	move_and_slide()
 
 
 func make_room() -> void:
+	making_room = true
 	current_path = room_path.instantiate()
 	add_child(current_path)
-	
-	current_path_follow = current_path.get_node("PathFollow2D")
+	current_path_follow = current_path.find_child("RoomPathFollow")
 	current_path_follow.loop = false
+	current_path_follow.progress_ratio = 0
 	make_room_offset = current_path_follow.position-position
 	
 	for i in range(current_path.curve.point_count):
 		current_path.curve.set_point_position(i, current_path.curve.get_point_position(i)-make_room_offset)
-	
+
 
 func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer and not pathfinding:
 		var coords = body.get_coords_for_body_rid(body_rid)
 		body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(1, 0))
+
+
+func set_speech(text, timeout=3) -> void:
+	$Speech.modulate = Color(255, 255, 255, 255)
+	$Speech.text = text
+	$VoicelineFadeout.wait_time = timeout
+	$VoicelineFadeout.start()
+	text_fading = true
+
+func _on_voiceline_timer_timeout() -> void:
+	set_speech("stuff", 3)
+
+
+func _on_voiceline_fadeout_timeout() -> void:
+	text_fading = false
