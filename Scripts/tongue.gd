@@ -11,7 +11,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func makepath() -> void:
-	nav_agent.target_position = player.global_position
+	nav_agent.target_position = get_global_mouse_position()
 	
 func _on_timer_timeout():
 	pass

@@ -2,9 +2,10 @@ extends Node2D
 
 var RopePiece = preload("res://Scenes/rope/tongue_chain.tscn")
 var rope_parts := []
-var piece_length := 25.0
+var piece_length := 23.0
 var rope_close_tolerance := 20.0
 var rope_points : PackedVector2Array = []
+var distance
 
 @onready var ropeStart = $ropeStart
 @onready var ropeEnd = $ropeEnd
@@ -23,14 +24,35 @@ func spawn_rope(start: Vector2, end: Vector2):
 	start = ropeStartJoint.global_position
 	end = ropeEndJoint.global_position
 	
-	var distance = start.distance_to(end)
-	print(distance)
+	distance = start.distance_to(end)
 	var segments = round(distance/piece_length)
-	print(segments)
 	var angle = (end - start).angle() - PI/2
 	create_rope(segments, ropeStart, end, angle)
 	
-	
+func extend_rope(end: Vector2):
+	if(ropeEnd.get_node("Col/Pin").global_position.distance_to(end) >= piece_length):
+		ropeEnd.global_position = end
+		end = ropeEndJoint.global_position
+		var last_chain = rope_parts[-1]
+		var angle = (end - last_chain.get_node("Col/Pin").global_position).angle() - PI/2
+		var next_chain = add_piece(last_chain, 0, angle)
+		rope_parts.append(next_chain)
+		ropeEndJoint.node_a = ropeEnd.get_path()
+		ropeEndJoint.node_b = rope_parts[-1].get_path()
+		distance = ropeStartJoint.global_position.distance_to(end)
+
+func shrink_rope(end: Vector2):
+	var last_chain = rope_parts[-1]
+	var new_dist = last_chain.global_position.distance_to(end)
+	if(new_dist <= piece_length/2 and rope_parts.size() != 1):
+		var popped = rope_parts.pop_back()
+		ropeEnd.global_position = popped.global_position
+		popped.queue_free()
+		end = ropeEndJoint.global_position
+		ropeEndJoint.node_a = ropeEnd.get_path()
+		ropeEndJoint.node_b = rope_parts[-1].get_path()
+		distance = ropeStartJoint.global_position.distance_to(end)
+	pass
 		
 func create_rope(amount:int, parent:Object, end:Vector2, angle:float) -> void:
 	for i in amount:

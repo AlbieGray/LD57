@@ -23,3 +23,5 @@ softness = 0.1
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0507813, 0.0507813)
 texture = ExtResource("1_orlcd")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
