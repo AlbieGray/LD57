@@ -13,7 +13,7 @@ var distance
 @onready var ropeEndJoint = $ropeEnd/Col/Pin
 
 #doesn't do anything currently (i think)
-func _process(delta):
+func _process(_delta):
 	create_rope_points()
 	if !rope_points.is_empty():
 		queue_redraw()

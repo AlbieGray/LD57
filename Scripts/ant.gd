@@ -40,7 +40,6 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("rightMouse"):
 		if selected and mouse_pos.distance_to(position) < 15:
 			drawing = true
-			print("started drawing")
 	
 	if Input.is_action_just_pressed("leftMouse"):
 		if selected:
@@ -48,7 +47,6 @@ func _process(delta: float) -> void:
 		elif mouse_pos.distance_to(position) < 15:
 			selected = true
 			get_parent().selected_ant = self
-			print("just selected")
 		else:
 			selected = false
 		$SelectedRing.visible = selected
@@ -57,12 +55,9 @@ func _process(delta: float) -> void:
 	if digging and selected and current_path_follow != null:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
-		#print(path.curve)
-		if current_path_follow.progress_ratio >= 1:# and path.curve.point_count > 0:
+		if current_path_follow.progress_ratio >= 1:
 			digging = false
-			print("finished following path")
 			path.curve.clear_points()
-			#current_path_follow = null
 	
 	if making_room:
 		current_path_follow.progress += delta*speed
@@ -87,7 +82,6 @@ func _process(delta: float) -> void:
 	
 	elif drawing and Input.is_action_just_released("rightMouse"):
 		drawing = false
-		print("ending drawing")
 		line.clear_points()
 		
 		
@@ -102,7 +96,6 @@ func _process(delta: float) -> void:
 			path.curve.clear_points()
 			line.clear_points()
 			
-			print("pathfinding to "+str(tile_coords))
 			$NavigationAgent2D.target_position = mouse_pos
 			pathfinding = true
 	
@@ -115,7 +108,6 @@ func _process(delta: float) -> void:
 		set_velocity(new_velocity)
 		
 		if $NavigationAgent2D.is_navigation_finished():
-			print("finished navigating")
 			pathfinding = false
 			velocity = Vector2(0,0)
 	

@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-@export var speed = 200
+@export var speed = 20
 @export var player: CharacterBody2D
 @onready var nav_agent = $navAgent
 	
 #moves the tongue (nav agent)
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	makepath()
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
 	velocity = dir * speed

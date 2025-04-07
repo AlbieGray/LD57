@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctsdok0e1krnr"]
+[gd_scene load_steps=7 format=3 uid="uid://ctsdok0e1krnr"]
 
 [ext_resource type="PackedScene" uid="uid://bj2yeydheectr" path="res://Scenes/Ground.tscn" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://cuiyvcx3bcqaf" path="res://Scripts/game.gd" id="1_kldst"]
 [ext_resource type="PackedScene" uid="uid://qjo51es7hbnr" path="res://Scenes/Ant.tscn" id="2_j5yw3"]
 [ext_resource type="PackedScene" uid="uid://rd8v16040ljk" path="res://Scenes/line_drawer.tscn" id="4_b2bpf"]
-[ext_resource type="PackedScene" uid="uid://bbi4fjfl186od" path="res://Scenes/rope/tongue.tscn" id="5_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://cpjracm4ua184" path="res://Scenes/hud.tscn" id="5_b2bpf"]
+[ext_resource type="PackedScene" uid="uid://bbi4fjfl186od" path="res://Scenes/rope/tongue.tscn" id="6_7lihs"]
 
 [node name="game" type="Node"]
 script = ExtResource("1_kldst")
@@ -17,11 +17,6 @@ position = Vector2(200, 175)
 
 [node name="LineDrawer" parent="." instance=ExtResource("4_b2bpf")]
 
-[node name="Tongue" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_b2bpf")]
-position = Vector2(139, 18)
-platform_floor_layers = 4294967043
-platform_wall_layers = 3
-speed = 50
-player = NodePath("../Ant")
-
 [node name="HUD" parent="." instance=ExtResource("5_b2bpf")]
+
+[node name="Tongue" parent="." instance=ExtResource("6_7lihs")]
