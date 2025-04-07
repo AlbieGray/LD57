@@ -79,7 +79,7 @@ texture = ExtResource("5_3so38")
 position = Vector2(323, 222)
 
 [node name="Tongue" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7lihs")]
-position = Vector2(249, 192)
+position = Vector2(322, 31)
 player = NodePath("../Ant")
 
 [node name="Camera" type="Camera2D" parent="."]
