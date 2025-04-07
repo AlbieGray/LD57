@@ -8,13 +8,12 @@
 atlas = ExtResource("3_0aatc")
 region = Rect2(0, 0, 160, 32)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yahas"]
-radius = 21.0238
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0aatc"]
 
 [sub_resource type="Curve2D" id="Curve2D_c1ub6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0aatc"]
-size = Vector2(31, 31)
+size = Vector2(9, 31)
 
 [sub_resource type="Curve2D" id="Curve2D_0aatc"]
 _data = {
@@ -43,8 +42,8 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="GroundCollision" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 6)
-shape = SubResource("CircleShape2D_yahas")
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_0aatc")
 
 [node name="DigPath" type="Node2D" parent="."]
 

@@ -33,7 +33,6 @@ func make_new_ant():
 	var new_ant = ant_scene.instantiate()
 	var rng = RandomNumberGenerator.new()
 	new_ant.position = selected_ant.position + Vector2(rng.randf_range(-10, 10), rng.randf_range(-10, 10))
-	new_ant.line = $LineDrawer/Line2D
 	new_ant.tilemap = $Ground/TileMapLayer
 	add_child(new_ant)
 
@@ -41,7 +40,7 @@ func update_gui():
 	$CanvasLayer/HUD.update_resource_counts(stone, food)
 
 func _ready():
-	$Ant.line = $LineDrawer/Line2D
+	#$Ant.line = $LineDrawer/Line2D
 	$Ant.tilemap = $Ground/TileMapLayer
 	
 	rope = Rope.instantiate()

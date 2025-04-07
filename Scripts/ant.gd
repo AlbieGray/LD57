@@ -4,10 +4,11 @@ enum state{idle, following_path,}
 var current_path_follow:PathFollow2D = null
 var make_room_offset:Vector2 = Vector2(0, 0)
 
-@export var speed = 200
+@export var speed = 20
 @onready var followPath = $DigPath/digPath/followPath
 
-var line = null
+var line_scene = preload("res://Scenes/line_drawer.tscn")
+var line
 var tilemap = null
 @onready var path = $DigPath/digPath
 var current_path = path
@@ -29,6 +30,10 @@ var digging = true
 const ant_names_script = preload("res://Scripts/ant_names.gd")
 
 func _ready():
+	var line_draw = line_scene.instantiate()
+	add_child(line_draw)
+	line = line_draw.find_child("Line2D")
+	
 	var first_names = ant_names_script.new().first_names
 	var second_names = ant_names_script.new().second_names
 	display_name = first_names.pick_random() + " " + second_names.pick_random()
@@ -42,6 +47,7 @@ func _process(delta: float) -> void:
 	# detect if clicked
 	if Input.is_action_just_pressed("rightMouse"):
 		if selected and mouse_pos.distance_to(position) < 15:
+			path.curve.clear_points()
 			drawing = true
 	
 	if Input.is_action_just_pressed("leftMouse"):
@@ -58,7 +64,7 @@ func _process(delta: float) -> void:
 	if digging and selected and current_path_follow != null:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
-		rotation = current_path_follow.rotation
+		rotation = current_path_follow.rotation + 90
 		if current_path_follow.progress_ratio >= 1:
 			digging = false
 			path.curve.clear_points()
@@ -66,7 +72,7 @@ func _process(delta: float) -> void:
 	if making_room:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
-		rotation = current_path_follow.rotation
+		rotation = current_path_follow.rotation + 90
 		if current_path_follow.progress_ratio >= 1:
 			making_room = false
 	
