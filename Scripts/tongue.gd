@@ -73,6 +73,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		retreat = true
 		timer.stop()
 
-func got_distracted(ant: Node2D):
+#TODO: change ant to grab index of ant
+func got_distracted(ant):
 	distracted = !distracted
 	target_ant = ant
