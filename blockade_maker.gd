@@ -24,7 +24,7 @@ func _process(delta):
 	
 	var map_coords = tilemap.local_to_map(position)
 	print(map_coords)
-	tilemap.set_cell(map_coords, tilemap.tile_set.get_source_id(0), Vector2(4, 0))
+	tilemap.set_cell(map_coords, tilemap.tile_set.get_source_id(0), Vector2(5, 4))
 	
 	if follower.progress_ratio == 1:
 		ant.blockading = false
