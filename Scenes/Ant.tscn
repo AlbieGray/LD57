@@ -58,7 +58,6 @@ curve = SubResource("Curve2D_c1ub6")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 navigation_layers = 6
-debug_enabled = true
 
 [node name="SpriteCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 5.5)

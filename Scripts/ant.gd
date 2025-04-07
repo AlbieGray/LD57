@@ -47,8 +47,9 @@ func _ready():
 
 func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
-	#
-	#if blockading:
+	
+	if blockading:
+		return
 		
 	
 	# detect if clicked
@@ -146,6 +147,8 @@ func make_blockade():
 	if game.stone < game.BLOCKADE_COST:
 		print("not enough stone!")
 		return
+	game.stone -= game.BLOCKADE_COST
+	game.update_gui()
 	game.make_blockade()
 	
 
@@ -153,7 +156,10 @@ func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, 
 	if body is TileMapLayer and not pathfinding:
 		var coords = body.get_coords_for_body_rid(body_rid)
 		var tile_type = tilemap.get_cell_atlas_coords(coords)
-		body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(1, 0))
+		
+		# blockade is indestructible
+		if tile_type != Vector2i(4, 0):
+			body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(1, 0))
 		if tile_type == Vector2i(2, 0):
 			game.stone += 1
 			game.update_gui()

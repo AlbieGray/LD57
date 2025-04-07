@@ -25,8 +25,11 @@ var dragging_camera = false
 var camera_drag_previous_point = Vector2(0, 0)
 
 var ants = []
+var blockades = []
 
 var button_just_clicked = false
+
+@onready var tilemap = $Ground/TileMapLayer
 
 func make_new_ant():
 	if selected_ant == null:
@@ -54,7 +57,16 @@ func make_new_ant():
 	add_child(new_ant)
 	
 	ants.append(new_ant)
-	
+
+func kill_ant(ant):
+	for blockade in blockades:
+		if blockade.ant == ant:
+			blockades.erase(blockade)
+			blockade.queue_free()
+	ant.queue_free()
+	ants.erase(ant)
+	selected_ant = null
+	update_gui()
 
 func update_gui():
 	$CanvasLayer/HUD.update_resource_counts(stone, food)
@@ -86,6 +98,7 @@ func make_blockade():
 	var blockader = blockade_scene.instantiate()
 	add_child(blockader)
 	blockader.position = selected_ant.position
+	blockades.append(blockader)
 
 func _ready():
 	#$Ant.line = $LineDrawer/Line2D
