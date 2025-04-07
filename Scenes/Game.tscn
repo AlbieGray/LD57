@@ -14,7 +14,9 @@ script = ExtResource("1_kldst")
 [node name="Ant" parent="." instance=ExtResource("2_j5yw3")]
 position = Vector2(288, 95)
 
-[node name="Tongue" parent="." instance=ExtResource("6_7lihs")]
+[node name="Tongue" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7lihs")]
+position = Vector2(186, 15)
+player = NodePath("../Ant")
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(320, 180)

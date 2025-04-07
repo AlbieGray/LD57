@@ -7,8 +7,8 @@ radius = 8.0
 
 [node name="ropeEnd" type="RigidBody2D"]
 disable_mode = 1
-collision_layer = 2
-collision_mask = 0
+collision_layer = 8
+collision_mask = 8
 gravity_scale = 0.0
 freeze = true
 
@@ -18,7 +18,6 @@ shape = SubResource("CircleShape2D_lqtvm")
 [node name="Pin" type="PinJoint2D" parent="Col"]
 scale = Vector2(1.87, 1.87)
 bias = 0.1
-softness = 0.1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0507813, 0.0507813)
