@@ -102,20 +102,15 @@ func _ready():
 	start = rope.get_child(0).global_position
 	end = tip.global_position
 	add_child(rope)
-	rope.spawn_rope(start, end)
 	
 func reset_rope():
 	rope.queue_free()
 	rope = Rope.instantiate()
+	start = rope.get_child(0).global_position
+	end = tip.global_position
 	add_child(rope)
-	rope.spawn_rope(start, end)
 
 func _process(_delta: float) -> void:
-	var past = end
-	end = tip.global_position
-	if end != Vector2.ZERO and end != past:
-		rope.extend_rope(end)
-		rope.shrink_rope(end)
 	
 	if Input.is_action_just_pressed("leftMouse"):
 		dragging_camera = true

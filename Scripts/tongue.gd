@@ -66,7 +66,7 @@ func makepath() -> void:
 		target_ant = -1
 
 
-#if tongue touches the 
+#if tongue touches the ant
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Ants")):
 		body.queue_free()
@@ -76,7 +76,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		print("Touch ant")
 		retreat = true
 		timer.stop()
-
+		
 #TODO: change ant to grab index of ant
 func got_distracted(ant):
 	distracted = !distracted
