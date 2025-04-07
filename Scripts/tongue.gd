@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var timer = $Timer
 
 var retreat
-var rooms
+var ants
 var initial_pos
 var has_ant
 
@@ -18,7 +18,7 @@ func _ready():
 	
 #moves the tongue (nav agent)
 func _physics_process(_delta: float) -> void:
-	rooms = get_tree().get_nodes_in_group("Ants")
+	ants = get_tree().get_nodes_in_group("Ants")
 	if(nav_agent.is_navigation_finished()):
 		retreat = !retreat
 		if(has_ant):
@@ -33,7 +33,7 @@ func _physics_process(_delta: float) -> void:
 #TODO: constant update of target rooms and randomly choose one
 func makepath() -> void:
 	if(!retreat):
-		if(rooms.size() != 0):
+		if(ants.size() != 0):
 			nav_agent.target_position = rooms.pick_random().global_position
 		else:
 			nav_agent.target_position = initial_pos
