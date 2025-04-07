@@ -4,7 +4,7 @@ enum state{idle, following_path,}
 var current_path_follow:PathFollow2D = null
 var make_room_offset:Vector2 = Vector2(0, 0)
 
-@export var speed = 20
+@export var speed = 200
 @onready var followPath = $DigPath/digPath/followPath
 
 var line_scene = preload("res://Scenes/line_drawer.tscn")
@@ -30,9 +30,9 @@ var digging = true
 const ant_names_script = preload("res://Scripts/ant_names.gd")
 
 func _ready():
-	var line_draw = line_scene.instantiate()
-	add_child(line_draw)
-	line = line_draw.find_child("Line2D")
+	#var line_draw = line_scene.instantiate()
+	#add_child(line_draw)
+	#line = line_draw.find_child("Line2D")
 	
 	var first_names = ant_names_script.new().first_names
 	var second_names = ant_names_script.new().second_names
@@ -47,6 +47,7 @@ func _process(delta: float) -> void:
 	# detect if clicked
 	if Input.is_action_just_pressed("rightMouse"):
 		if selected and mouse_pos.distance_to(position) < 15:
+			game.draw_line()
 			path.curve.clear_points()
 			drawing = true
 	
@@ -64,7 +65,7 @@ func _process(delta: float) -> void:
 	if digging and selected and current_path_follow != null:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
-		rotation = current_path_follow.rotation + 90
+		$Sprite2D.rotation = current_path_follow.rotation + 90
 		if current_path_follow.progress_ratio >= 1:
 			digging = false
 			path.curve.clear_points()
@@ -72,7 +73,7 @@ func _process(delta: float) -> void:
 	if making_room:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
-		rotation = current_path_follow.rotation + 90
+		$Sprite2D.rotation = current_path_follow.rotation + 90
 		if current_path_follow.progress_ratio >= 1:
 			making_room = false
 	
@@ -131,6 +132,7 @@ func make_room() -> void:
 	if game.stone < game.NEW_ROOM_COST:
 		print("not enough stone!")
 		return
+	game.add_room()
 	game.stone -= game.NEW_ROOM_COST
 	game.update_gui()
 	making_room = true

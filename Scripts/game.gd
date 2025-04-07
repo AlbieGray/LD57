@@ -4,6 +4,8 @@ var selected_ant = null
 var ants = []
 
 var ant_scene = preload("res://Scenes/Ant.tscn")
+var line_scene = preload("res://Scenes/line_drawer.tscn")
+var room_scene = preload("res://Scenes/room.tscn")
 
 # rope stuff
 var Rope = preload("res://Scenes/rope/rope.tscn")
@@ -28,6 +30,16 @@ func make_new_ant():
 	if food <= NEW_ANT_COST:
 		print("not enough food!")
 		return
+	
+	var in_room = false
+	for thing in selected_ant.find_child("Area2D").get_overlapping_areas():
+		print(thing.name)
+		if thing.name == "RoomArea":
+			in_room = true
+	if not in_room:
+		print("must be in a room to make a new ant")
+		return
+		
 	food -= NEW_ANT_COST
 	update_gui()
 	var new_ant = ant_scene.instantiate()
@@ -38,6 +50,19 @@ func make_new_ant():
 
 func update_gui():
 	$CanvasLayer/HUD.update_resource_counts(stone, food)
+	#x = 
+	#$CanvasLayer/HUD.
+
+func draw_line():
+	var line_drawer = line_scene.instantiate()
+	selected_ant.line = line_drawer.find_child("Line2D")
+	add_child(line_drawer)
+
+func add_room():
+	var room_position = selected_ant.position
+	var new_room = room_scene.instantiate()
+	add_child(new_room)
+	new_room.position = room_position
 
 func _ready():
 	#$Ant.line = $LineDrawer/Line2D

@@ -6,6 +6,10 @@ func update_resource_counts(stone, food):
 	$StoneLabel.text = "Stone: "+str(stone)
 	$FoodLabel.text = "Food: "+str(food)
 
+func update_button_visibility(new_ant=true, make_room=true):
+	$MakeAntButton.visible = new_ant
+	$MakeRoomButton.visible = make_room
+
 func _on_make_ant_button_pressed() -> void:
 	game.make_new_ant()
 
