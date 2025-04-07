@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://qjo51es7hbnr"]
+[gd_scene load_steps=9 format=3 uid="uid://qjo51es7hbnr"]
 
 [ext_resource type="Script" uid="uid://qqo26vx2bish" path="res://Scripts/ant.gd" id="1_yahas"]
 [ext_resource type="Texture2D" uid="uid://bpxpwcmmrttp5" path="res://assets/sprites/selected_programmer.png" id="2_0aatc"]
-[ext_resource type="Texture2D" uid="uid://bhm5cbnlvkisa" path="res://icon.svg" id="2_y1ll1"]
+[ext_resource type="Texture2D" uid="uid://dgq1aao8hn52l" path="res://assets/sprites/Ant-Sheet.png" id="3_0aatc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruxgy"]
+atlas = ExtResource("3_0aatc")
+region = Rect2(0, 0, 160, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yahas"]
 radius = 21.0238
@@ -31,8 +35,8 @@ texture = ExtResource("2_0aatc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.500002, 5.5)
-scale = Vector2(0.257812, 0.257813)
-texture = ExtResource("2_y1ll1")
+texture = SubResource("AtlasTexture_ruxgy")
+hframes = 5
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4

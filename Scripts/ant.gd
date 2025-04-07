@@ -33,6 +33,8 @@ func _ready():
 	var second_names = ant_names_script.new().second_names
 	display_name = first_names.pick_random() + " " + second_names.pick_random()
 	$NameTag.text = display_name
+	
+	$Sprite2D.frame = randi_range(0, 4)
 
 func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
@@ -56,6 +58,7 @@ func _process(delta: float) -> void:
 	if digging and selected and current_path_follow != null:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
+		rotation = current_path_follow.rotation
 		if current_path_follow.progress_ratio >= 1:
 			digging = false
 			path.curve.clear_points()
@@ -63,6 +66,7 @@ func _process(delta: float) -> void:
 	if making_room:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
+		rotation = current_path_follow.rotation
 		if current_path_follow.progress_ratio >= 1:
 			making_room = false
 	

@@ -18,6 +18,9 @@ var food = 0
 const NEW_ANT_COST = 50
 const NEW_ROOM_COST = 50
 
+var dragging_camera = false
+var camera_drag_previous_point = Vector2(0, 0)
+
 func make_new_ant():
 	if selected_ant == null:
 		print("select an ant first!")
@@ -35,7 +38,7 @@ func make_new_ant():
 	add_child(new_ant)
 
 func update_gui():
-	$HUD.update_resource_counts(stone, food)
+	$CanvasLayer/HUD.update_resource_counts(stone, food)
 
 func _ready():
 	$Ant.line = $LineDrawer/Line2D
@@ -53,3 +56,13 @@ func _process(_delta: float) -> void:
 	if end != Vector2.ZERO and end != past:
 		rope.extend_rope(end)
 		rope.shrink_rope(end)
+	
+	if Input.is_action_just_pressed("leftMouse"):
+		dragging_camera = true
+		camera_drag_previous_point = get_viewport().get_mouse_position()
+	elif Input.is_action_pressed("leftMouse"):
+		var delta = camera_drag_previous_point - get_viewport().get_mouse_position()
+		$Camera.position += delta
+		
+		camera_drag_previous_point = get_viewport().get_mouse_position()
+	

@@ -17,6 +17,13 @@ position = Vector2(200, 175)
 
 [node name="LineDrawer" parent="." instance=ExtResource("4_b2bpf")]
 
-[node name="HUD" parent="." instance=ExtResource("5_b2bpf")]
-
 [node name="Tongue" parent="." instance=ExtResource("6_7lihs")]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+limit_left = 0
+limit_smoothed = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("5_b2bpf")]
