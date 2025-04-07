@@ -28,5 +28,10 @@ func makepath() -> void:
 	
 
 func _on_timer_timeout():
+	#TODO: increase timer as game progresses
 	retreat = !retreat
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if(body.is_in_group("Ants")):
+		print("Touch ant")
 	pass

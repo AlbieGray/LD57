@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ba5jguls25ggu"]
+[gd_scene load_steps=0 format=3 uid="uid://ba5jguls25ggu"]
 
 [node name="Room" type="Node2D"]
 position = Vector2(-35, 0)
