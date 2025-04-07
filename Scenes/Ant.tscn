@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://qjo51es7hbnr"]
 
 [ext_resource type="Script" uid="uid://qqo26vx2bish" path="res://Scripts/ant.gd" id="1_yahas"]
-[ext_resource type="Texture2D" uid="uid://bpxpwcmmrttp5" path="res://assets/sprites/selected_programmer.png" id="2_0aatc"]
+[ext_resource type="Texture2D" uid="uid://v3ww3a4ukf3f" path="res://assets/sprites/Indicator.png" id="2_0aatc"]
 [ext_resource type="Texture2D" uid="uid://dgq1aao8hn52l" path="res://assets/sprites/Ant-Sheet.png" id="3_0aatc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ruxgy"]
@@ -17,9 +17,9 @@ size = Vector2(9, 31)
 
 [sub_resource type="Curve2D" id="Curve2D_0aatc"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 149, -1, 0, 0, 0, 0, 203, 2, 0, 0, 0, 0, 172, -51, 0, 0, 0, 0, 129, -52, 0, 0, 0, 0, 128, -3, 0, 0, 0, 0, 87, -1, 0, 0, 0, 0, 89, -45, 0, 0, 0, 0, 124, -77, 0, 0, 0, 0, 190, -75, 0, 0, 0, 0, 229, -28, 0, 0, 0, 0, 245, -1, 0, 0, 0, 0, 288, 0, 0, 0, 0, 0, 258, -51, 0, 0, 0, 0, 201, -96, 0, 0, 0, 0, 131, -100, 0, 0, 0, 0, 69, -69, 0, 0, 0, 0, 27, -21, 0, 0, 0, 0, 31, 3, 0, 0, 0, 0, 148, -1)
+"points": PackedVector2Array(0, 0, 0, 0, 149, -1, 0, 0, 0, 0, 169, -24, 0, 0, 0, 0, 174, 1, 0, 0, 0, 0, 203, 2, 0, 0, 0, 0, 211, -15, 0, 0, 0, 0, 195, -29, 0, 0, 0, 0, 172, -51, 0, 0, 0, 0, 129, -52, 0, 0, 0, 0, 128, -3, 0, 0, 0, 0, 87, -1, 0, 0, 0, 0, 89, -45, 0, 0, 0, 0, 124, -77, 0, 0, 0, 0, 190, -75, 0, 0, 0, 0, 237, -18, 0, 0, 0, 0, 236, 1, 0, 0, 0, 0, 279, 0, 0, 0, 0, 0, 242, -52, 0, 0, 0, 0, 201, -96, 0, 0, 0, 0, 131, -100, 0, 0, 0, 0, 69, -69, 0, 0, 0, 0, 27, -21, 0, 0, 0, 0, 31, 3, 0, 0, 0, 0, 148, -1)
 }
-point_count = 19
+point_count = 23
 
 [node name="ant" type="CharacterBody2D"]
 collision_layer = 2
@@ -27,9 +27,8 @@ collision_mask = 0
 script = ExtResource("1_yahas")
 
 [node name="SelectedRing" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(1, 18)
-scale = Vector2(0.116, 0.112)
+position = Vector2(-0.144001, 4.292)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_0aatc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -38,8 +37,8 @@ texture = SubResource("AtlasTexture_ruxgy")
 hframes = 5
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 12
+collision_mask = 12
 
 [node name="GroundCollision" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 4)
@@ -91,7 +90,7 @@ curve = SubResource("Curve2D_0aatc")
 
 [node name="RoomPathFollow" type="PathFollow2D" parent="RoomPath"]
 position = Vector2(149, -1)
-rotation = 0.0554985
+rotation = -0.855053
 
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
 [connection signal="timeout" from="VoicelineTimer" to="." method="_on_voiceline_timer_timeout"]
