@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var speed = 20
 @export var player: CharacterBody2D
 @onready var nav_agent = $navAgent
+@export var pin: PinJoint2D
+@onready var timer = $Timer
 
 var retreat
 var initial_pos
@@ -13,6 +15,9 @@ func _ready():
 	
 #moves the tongue (nav agent)
 func _physics_process(_delta: float) -> void:
+	if(nav_agent.is_navigation_finished()):
+		timer.start()
+		retreat = !retreat
 	makepath()
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
 	velocity = dir * speed
@@ -34,4 +39,7 @@ func _on_timer_timeout():
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Ants")):
 		print("Touch ant")
+		retreat = true
+		timer.stop()
+		
 	pass
