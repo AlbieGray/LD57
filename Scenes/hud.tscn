@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpjracm4ua184"]
+[gd_scene load_steps=3 format=3 uid="uid://cpjracm4ua184"]
 
 [ext_resource type="Script" uid="uid://d1smsmkvyvxrl" path="res://hud.gd" id="1_e0onf"]
+[ext_resource type="AudioStream" uid="uid://c2xo0i1v7g5u5" path="res://assets/SFX/Button.wav" id="2_fccik"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -17,30 +18,33 @@ offset_left = 513.0
 offset_top = 14.0
 offset_right = 631.0
 offset_bottom = 45.0
-text = "make new ant"
+text = "make new ant.
+100 food"
 
 [node name="MakeRoomButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 523.0
-offset_top = 60.0
-offset_right = 633.0
-offset_bottom = 91.0
-text = "Make a room"
+offset_left = 518.0
+offset_top = 63.0
+offset_right = 628.0
+offset_bottom = 103.0
+text = "Make a room.
+100 stone"
 
 [node name="MakeBlockadeButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 500.0
-offset_top = 105.0
-offset_right = 638.0
-offset_bottom = 136.0
-text = "Make a blockade"
+offset_left = 492.0
+offset_top = 115.0
+offset_right = 630.0
+offset_bottom = 155.0
+text = "Make a blockade. 
+100 stone"
 
 [node name="DistractButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 500.0
-offset_top = 145.0
-offset_right = 638.0
-offset_bottom = 176.0
+offset_left = 492.0
+offset_top = 166.0
+offset_right = 630.0
+offset_bottom = 197.0
 text = "Distract"
 
 [node name="StoneLabel" type="Label" parent="."]
@@ -55,6 +59,10 @@ offset_top = 26.0
 offset_right = 56.0
 offset_bottom = 49.0
 text = "Food: 0"
+
+[node name="Button" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_fccik")
+volume_db = -11.174
 
 [connection signal="pressed" from="MakeAntButton" to="." method="_on_make_ant_button_pressed"]
 [connection signal="pressed" from="MakeRoomButton" to="." method="_on_make_room_button_pressed"]

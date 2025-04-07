@@ -1,8 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://qjo51es7hbnr"]
+[gd_scene load_steps=14 format=3 uid="uid://qjo51es7hbnr"]
 
 [ext_resource type="Script" uid="uid://qqo26vx2bish" path="res://Scripts/ant.gd" id="1_yahas"]
 [ext_resource type="Texture2D" uid="uid://v3ww3a4ukf3f" path="res://assets/sprites/Indicator.png" id="2_0aatc"]
 [ext_resource type="Texture2D" uid="uid://dgq1aao8hn52l" path="res://assets/sprites/Ant-Sheet.png" id="3_0aatc"]
+[ext_resource type="AudioStream" uid="uid://bg1o3i46uajol" path="res://assets/SFX/AntMove.wav" id="4_ruxgy"]
+[ext_resource type="AudioStream" uid="uid://dcfqb5mb1eejr" path="res://assets/SFX/BlockadeComplete.wav" id="5_72js2"]
+[ext_resource type="AudioStream" uid="uid://la3ui2lwksvg" path="res://assets/SFX/BreakFood.wav" id="6_srs4y"]
+[ext_resource type="AudioStream" uid="uid://chkkes012j1hq" path="res://assets/SFX/BreakStone.wav" id="7_rrrr0"]
+[ext_resource type="AudioStream" uid="uid://bw2o8dsbh0a10" path="res://assets/SFX/BuildRoom.wav" id="8_rrrr0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ruxgy"]
 atlas = ExtResource("3_0aatc")
@@ -93,6 +98,27 @@ curve = SubResource("Curve2D_0aatc")
 [node name="RoomPathFollow" type="PathFollow2D" parent="RoomPath"]
 position = Vector2(149, -1)
 rotation = -0.855053
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="AntMove" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("4_ruxgy")
+volume_db = -22.347
+
+[node name="BlockadeFinished" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("5_72js2")
+
+[node name="BreakFood" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("6_srs4y")
+volume_db = -20.298
+
+[node name="BreakStone" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("7_rrrr0")
+volume_db = -20.629
+
+[node name="MakeRoom" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("8_rrrr0")
+volume_db = -22.347
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
