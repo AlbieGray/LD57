@@ -18,7 +18,7 @@ func _process(_delta):
 	if !rope_points.is_empty():
 		queue_redraw()
 	
-#called to initialise rope
+#called to initialise ropee
 func spawn_rope(start: Vector2, end: Vector2):
 	ropeStart.global_position = start
 	ropeEnd.global_position = end
