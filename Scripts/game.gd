@@ -50,8 +50,13 @@ func make_new_ant():
 
 func update_gui():
 	$CanvasLayer/HUD.update_resource_counts(stone, food)
-	#x = 
-	#$CanvasLayer/HUD.
+	var show_make_ant_button = false
+	var show_make_room_button = false
+	if selected_ant != null:
+		show_make_ant_button = selected_ant.queen
+		show_make_room_button = true
+	
+	$CanvasLayer/HUD.update_button_visibility(show_make_ant_button, show_make_room_button)
 
 func draw_line():
 	var line_drawer = line_scene.instantiate()
@@ -67,6 +72,9 @@ func add_room():
 func _ready():
 	#$Ant.line = $LineDrawer/Line2D
 	$Ant.tilemap = $Ground/TileMapLayer
+	$Ant.queen = true
+	$Ant.display_name = "Queen \n"+ $Ant.display_name
+	$Ant/NameTag.text = $Ant.display_name
 	
 	rope = Rope.instantiate()
 	start = rope.get_child(0).global_position

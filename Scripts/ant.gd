@@ -7,6 +7,8 @@ var make_room_offset:Vector2 = Vector2(0, 0)
 @export var speed = 200
 @onready var followPath = $DigPath/digPath/followPath
 
+var queen = false
+
 var line_scene = preload("res://Scenes/line_drawer.tscn")
 var line
 var tilemap = null
@@ -54,12 +56,15 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("leftMouse"):
 		if selected:
 			selected = false
+			get_parent().selected_ant = null
 		elif mouse_pos.distance_to(position) < 15:
 			selected = true
 			get_parent().selected_ant = self
 		else:
 			selected = false
+			get_parent().selected_ant = null
 		$SelectedRing.visible = selected
+		game.update_gui()
 	
 	 # path following
 	if digging and selected and current_path_follow != null:
