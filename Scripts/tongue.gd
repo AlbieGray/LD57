@@ -18,9 +18,8 @@ func _ready():
 	
 #moves the tongue (nav agent)
 func _physics_process(_delta: float) -> void:
-	rooms = get_tree().get_nodes_in_group("Rooms")
+	rooms = get_tree().get_nodes_in_group("Ants")
 	if(nav_agent.is_navigation_finished()):
-		timer.start()
 		retreat = !retreat
 		if(has_ant):
 			get_node("Sprite2D").queue_free()
@@ -36,14 +35,13 @@ func makepath() -> void:
 	if(!retreat):
 		if(rooms.size() != 0):
 			nav_agent.target_position = rooms.pick_random().global_position
+		else:
+			nav_agent.target_position = initial_pos
 	elif(retreat):
 		nav_agent.target_position = initial_pos
-	
 
-func _on_timer_timeout():
-	#TODO: increase timer as game progresses
-	retreat = !retreat
 
+#if tongue touches the 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Ants")):
 		body.queue_free()
