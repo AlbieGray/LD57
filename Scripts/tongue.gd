@@ -31,8 +31,6 @@ func _physics_process(_delta: float) -> void:
 		if(has_ant):
 			get_node("Sprite2D").queue_free()
 			has_ant = false
-	else:
-		nav_agent.target_position = ants[target_ant].global_position
 	if(distracted):
 		nav_agent.target_position = ants[target_ant].global_position
 		distracted = !distracted
@@ -45,6 +43,10 @@ func _physics_process(_delta: float) -> void:
 			has_ant = false
 	else:
 		makepath()
+		if(target_ant != -1):
+			nav_agent.target_position = ants[target_ant].global_position
+		else:
+			nav_agent.target_position = initial_pos
 	
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
 	velocity = dir * speed
