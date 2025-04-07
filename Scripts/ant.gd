@@ -28,6 +28,7 @@ var pathfinding = false
 var text_fading = false
 var making_room = false
 var digging = true
+var mouse_hovered = false
 
 const ant_names_script = preload("res://Scripts/ant_names.gd")
 
@@ -53,16 +54,16 @@ func _process(delta: float) -> void:
 			path.curve.clear_points()
 			drawing = true
 	
-	if Input.is_action_just_pressed("leftMouse"):
-		if selected:
-			selected = false
-		elif mouse_pos.distance_to(position) < 15:
-			selected = true
-			get_parent().selected_ant = self
-		else:
-			selected = false
-		$SelectedRing.visible = selected
-		game.update_gui()
+	#if Input.is_action_just_pressed("leftMouse"):
+		#if selected:
+			#selected = false
+		#elif mouse_pos.distance_to(position) < 15:
+			#selected = true
+			#get_parent().selected_ant = self
+		#else:
+			#selected = false
+		#$SelectedRing.visible = selected
+		#game.update_gui()
 	
 	 # path following
 	if digging and current_path_follow != null:
@@ -79,7 +80,6 @@ func _process(delta: float) -> void:
 		$Sprite2D.rotation = current_path_follow.rotation + 90
 		if current_path_follow.progress_ratio >= 1:
 			making_room = false
-	
 	
 	
 	# making line and path
@@ -127,7 +127,7 @@ func _process(delta: float) -> void:
 	
 	if text_fading:
 		$Speech.modulate = Color(255, 255, 255, 10*($VoicelineFadeout.time_left/$VoicelineFadeout.wait_time))
-
+	
 	move_and_slide()
 
 
@@ -176,3 +176,11 @@ func _on_voiceline_timer_timeout() -> void:
 
 func _on_voiceline_fadeout_timeout() -> void:
 	text_fading = false
+
+
+
+func _on_mouse_entered() -> void:
+	mouse_hovered = true
+
+func _on_mouse_exited() -> void:
+	mouse_hovered = false

@@ -11,10 +11,12 @@ func update_button_visibility(new_ant=true, make_room=true):
 	$MakeRoomButton.visible = make_room
 
 func _on_make_ant_button_pressed() -> void:
+	game.button_just_clicked = true
 	game.make_new_ant()
 
 
 func _on_make_room_button_pressed() -> void:
+	game.button_just_clicked = true
 	var currently_selected_ant = game.selected_ant
 	if currently_selected_ant != null:
 		currently_selected_ant.make_room()
