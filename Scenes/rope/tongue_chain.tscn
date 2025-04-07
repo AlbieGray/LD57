@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://d5rkfcqdpdlg"]
+
+[ext_resource type="Script" uid="uid://dgukkisqx5epg" path="res://Scripts/tongue_chain.gd" id="1_r0n38"]
+[ext_resource type="Texture2D" uid="uid://bhm5cbnlvkisa" path="res://icon.svg" id="2_fsc12"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bgnh3"]
+radius = 4.0
+height = 26.0
+
+[node name="tongueChain" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+linear_damp = 1.0
+angular_damp = 1.0
+script = ExtResource("1_r0n38")
+
+[node name="Col" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
+shape = SubResource("CapsuleShape2D_bgnh3")
+
+[node name="Pin" type="PinJoint2D" parent="Col"]
+position = Vector2(0, 13)
+scale = Vector2(2.38, 2.38)
+bias = 0.1
+softness = 0.1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 13)
+scale = Vector2(0.0625, 0.203125)
+texture = ExtResource("2_fsc12")
