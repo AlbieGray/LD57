@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://d40mqlxobdwe"]
+
+[ext_resource type="Script" uid="uid://c0nchah0v6py1" path="res://Scenes/blockade_maker.gd" id="1_u4mvn"]
+[ext_resource type="Texture2D" uid="uid://bhm5cbnlvkisa" path="res://icon.svg" id="2_1nart"]
+
+[sub_resource type="Curve2D" id="Curve2D_3763y"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, 2, 0, 0, 0, 0, 6, 3, 0, 0, 0, 0, 7, 5, 0, 0, 0, 0, -7, 5, 0, 0, 0, 0, 7, 7, 0, 0, 0, 0, -7, 7, 0, 0, 0, 0, 5, 9, 0, 0, 0, 0, -6, 10, 0, 0, 0, 0, 0, 13)
+}
+point_count = 10
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ei0bf"]
+radius = 2.0
+
+[node name="BlockadeMaker" type="Node2D"]
+script = ExtResource("1_u4mvn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.98023e-08, -1.49012e-08)
+scale = Vector2(0.03125, 0.03125)
+texture = ExtResource("2_1nart")
+
+[node name="BlockadePath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_3763y")
+
+[node name="BlockadeWalker" type="PathFollow2D" parent="BlockadePath"]
+rotation = 2.76109
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ei0bf")
