@@ -9,14 +9,13 @@ radius = 13.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_b00ln"]
 radius = 16.0
 
-[node name="Tongue" type="CharacterBody2D" node_paths=PackedStringArray("player", "pin")]
+[node name="Tongue" type="CharacterBody2D" node_paths=PackedStringArray("player")]
 collision_layer = 3
 collision_mask = 7
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_xy2nq")
 player = NodePath(".")
-pin = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i0wcl")
@@ -29,7 +28,6 @@ texture = ExtResource("1_2g2cu")
 [node name="navAgent" type="NavigationAgent2D" parent="."]
 navigation_layers = 4
 radius = 20.0
-debug_enabled = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0

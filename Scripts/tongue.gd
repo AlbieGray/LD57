@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var nav_agent = $navAgent
 @export var pin: PinJoint2D
 @onready var timer = $Timer
+@onready var game = get_parent()
 
 var retreat
 var ants
@@ -67,7 +68,7 @@ func makepath() -> void:
 #if tongue touches the 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Ants")):
-		body.queue_free()
+		game.kill_ant(body)
 		var sprite = body.get_node("Sprite2D").duplicate()
 		add_child(sprite)
 		has_ant = true
