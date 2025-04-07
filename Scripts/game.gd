@@ -61,14 +61,16 @@ func update_gui():
 	var show_make_ant_button = false
 	var show_make_room_button = false
 	var show_make_blockade_button = false
+	var show_distract_button = false
 	if selected_ant != null:
 		show_make_ant_button = selected_ant.queen
 		show_make_room_button = true
 		show_make_blockade_button = true
+		show_distract_button = true
 	
 	$CanvasLayer/HUD.update_button_visibility(show_make_ant_button, 
 		show_make_room_button,
-		show_make_blockade_button)
+		show_make_blockade_button, show_distract_button)
 
 func draw_line():
 	var line_drawer = line_scene.instantiate()

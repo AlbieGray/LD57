@@ -6,10 +6,11 @@ func update_resource_counts(stone, food):
 	$StoneLabel.text = "Stone: "+str(stone)
 	$FoodLabel.text = "Food: "+str(food)
 
-func update_button_visibility(new_ant=true, make_room=true, make_blockade=true):
+func update_button_visibility(new_ant=true, make_room=true, make_blockade=true, distract=true):
 	$MakeAntButton.visible = new_ant
 	$MakeRoomButton.visible = make_room
 	$MakeBlockadeButton.visible = make_blockade
+	$DistractButton.visible = distract
 
 func _on_make_ant_button_pressed() -> void:
 	game.button_just_clicked = true
@@ -28,3 +29,10 @@ func _on_make_blockade_button_pressed() -> void:
 	var currently_selected_ant = game.selected_ant
 	if currently_selected_ant != null:
 		currently_selected_ant.make_blockade()
+
+
+func _on_distract_button_pressed() -> void:
+	var currently_selected_ant = game.selected_ant
+	if currently_selected_ant != null:
+		game.tip.got_distracted(currently_selected_ant)
+	pass # Replace with function body.

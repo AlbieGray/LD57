@@ -16,6 +16,7 @@ var tilemap = null
 var current_path = path
 @onready var follow = $DigPath/digPath/followPath
 @onready var game = get_parent()
+@onready var sprite = $Sprite2D
 
 var display_name = "unnamed"
 
