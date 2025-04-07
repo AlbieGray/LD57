@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ctsdok0e1krnr"]
+[gd_scene load_steps=18 format=3 uid="uid://ctsdok0e1krnr"]
 
 [ext_resource type="PackedScene" uid="uid://bj2yeydheectr" path="res://Scenes/Ground.tscn" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://cuiyvcx3bcqaf" path="res://Scripts/game.gd" id="1_kldst"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://cpjracm4ua184" path="res://Scenes/hud.tscn" id="5_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://bbi4fjfl186od" path="res://Scenes/rope/tongue.tscn" id="6_7lihs"]
 [ext_resource type="PackedScene" uid="uid://ba5jguls25ggu" path="res://Scenes/room.tscn" id="6_fgofq"]
+[ext_resource type="AudioStream" uid="uid://bcdttmcaxf4dw" path="res://assets/SFX/AntDeath.wav" id="12_3cx6b"]
+[ext_resource type="AudioStream" uid="uid://day28efsot30i" path="res://assets/SFX/Click.wav" id="13_wxwew"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3cx6b"]
 atlas = ExtResource("4_dahhg")
@@ -98,3 +100,11 @@ position = Vector2(308, 222)
 offset_top = -1.0
 offset_bottom = -1.0
 mouse_filter = 2
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="AntDeath" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("12_3cx6b")
+
+[node name="Click" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("13_wxwew")
