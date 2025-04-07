@@ -5,6 +5,7 @@ var selected_ant = null
 var ant_scene = preload("res://Scenes/Ant.tscn")
 var line_scene = preload("res://Scenes/line_drawer.tscn")
 var room_scene = preload("res://Scenes/room.tscn")
+var blockade_scene = preload("res://Scenes/blockade_maker.tscn")
 
 # rope stuff
 var Rope = preload("res://Scenes/rope/rope.tscn")
@@ -18,6 +19,7 @@ var food = 0
 
 const NEW_ANT_COST = 50
 const NEW_ROOM_COST = 50
+const BLOCKADE_COST = 100
 
 var dragging_camera = false
 var camera_drag_previous_point = Vector2(0, 0)
@@ -58,11 +60,15 @@ func update_gui():
 	$CanvasLayer/HUD.update_resource_counts(stone, food)
 	var show_make_ant_button = false
 	var show_make_room_button = false
+	var show_make_blockade_button = false
 	if selected_ant != null:
 		show_make_ant_button = selected_ant.queen
 		show_make_room_button = true
+		show_make_blockade_button = true
 	
-	$CanvasLayer/HUD.update_button_visibility(show_make_ant_button, show_make_room_button)
+	$CanvasLayer/HUD.update_button_visibility(show_make_ant_button, 
+		show_make_room_button,
+		show_make_blockade_button)
 
 func draw_line():
 	var line_drawer = line_scene.instantiate()
@@ -74,6 +80,12 @@ func add_room():
 	var new_room = room_scene.instantiate()
 	add_child(new_room)
 	new_room.position = room_position
+
+func make_blockade():
+	print("making blockade")
+	var blockader = blockade_scene.instantiate()
+	add_child(blockader)
+	blockader.position = selected_ant.position
 
 func _ready():
 	#$Ant.line = $LineDrawer/Line2D
@@ -107,7 +119,6 @@ func _process(_delta: float) -> void:
 		camera_drag_previous_point = get_viewport().get_mouse_position()
 	
 	if Input.is_action_just_released("leftMouse") and not button_just_clicked:
-		print("mouse click detected")
 		selected_ant = null
 		for ant in ants:
 			ant.selected = false
@@ -117,7 +128,7 @@ func _process(_delta: float) -> void:
 		if selected_ant != null:
 			selected_ant.selected = true
 			selected_ant.find_child("SelectedRing").visible = true
-			update_gui()
+		update_gui()
 	
 	button_just_clicked = false
 	

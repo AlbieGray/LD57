@@ -27,6 +27,14 @@ offset_right = 633.0
 offset_bottom = 91.0
 text = "Make a room"
 
+[node name="MakeBlockadeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 105.0
+offset_right = 630.0
+offset_bottom = 129.0
+text = "Make a blockade"
+
 [node name="StoneLabel" type="Label" parent="."]
 layout_mode = 0
 offset_right = 62.0
@@ -42,3 +50,4 @@ text = "Food: 0"
 
 [connection signal="pressed" from="MakeAntButton" to="." method="_on_make_ant_button_pressed"]
 [connection signal="pressed" from="MakeRoomButton" to="." method="_on_make_room_button_pressed"]
+[connection signal="pressed" from="MakeBlockadeButton" to="." method="_on_make_blockade_button_pressed"]

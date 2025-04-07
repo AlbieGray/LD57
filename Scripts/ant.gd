@@ -29,6 +29,7 @@ var text_fading = false
 var making_room = false
 var digging = true
 var mouse_hovered = false
+var blockading = false
 
 const ant_names_script = preload("res://Scripts/ant_names.gd")
 
@@ -46,6 +47,9 @@ func _ready():
 
 func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
+	#
+	#if blockading:
+		
 	
 	# detect if clicked
 	if Input.is_action_just_pressed("rightMouse"):
@@ -53,17 +57,6 @@ func _process(delta: float) -> void:
 			game.draw_line()
 			path.curve.clear_points()
 			drawing = true
-	
-	#if Input.is_action_just_pressed("leftMouse"):
-		#if selected:
-			#selected = false
-		#elif mouse_pos.distance_to(position) < 15:
-			#selected = true
-			#get_parent().selected_ant = self
-		#else:
-			#selected = false
-		#$SelectedRing.visible = selected
-		#game.update_gui()
 	
 	 # path following
 	if digging and current_path_follow != null:
@@ -149,6 +142,12 @@ func make_room() -> void:
 	for i in range(current_path.curve.point_count):
 		current_path.curve.set_point_position(i, current_path.curve.get_point_position(i)-make_room_offset)
 
+func make_blockade():
+	if game.stone < game.BLOCKADE_COST:
+		print("not enough stone!")
+		return
+	game.make_blockade()
+	
 
 func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer and not pathfinding:
