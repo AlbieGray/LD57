@@ -1,7 +1,6 @@
 extends Node
 
 var selected_ant = null
-var ants = []
 
 var ant_scene = preload("res://Scenes/Ant.tscn")
 var line_scene = preload("res://Scenes/line_drawer.tscn")
@@ -22,6 +21,10 @@ const NEW_ROOM_COST = 50
 
 var dragging_camera = false
 var camera_drag_previous_point = Vector2(0, 0)
+
+var ants = []
+
+var button_just_clicked = false
 
 func make_new_ant():
 	if selected_ant == null:
@@ -47,6 +50,9 @@ func make_new_ant():
 	new_ant.position = selected_ant.position + Vector2(rng.randf_range(-10, 10), rng.randf_range(-10, 10))
 	new_ant.tilemap = $Ground/TileMapLayer
 	add_child(new_ant)
+	
+	ants.append(new_ant)
+	
 
 func update_gui():
 	$CanvasLayer/HUD.update_resource_counts(stone, food)
@@ -76,6 +82,8 @@ func _ready():
 	$Ant.display_name = "Queen \n"+ $Ant.display_name
 	$Ant/NameTag.text = $Ant.display_name
 	
+	ants = [$Ant]
+	
 	rope = Rope.instantiate()
 	start = rope.get_child(0).global_position
 	end = tip.global_position
@@ -97,4 +105,20 @@ func _process(_delta: float) -> void:
 		$Camera.position += delta
 		
 		camera_drag_previous_point = get_viewport().get_mouse_position()
+	
+	if Input.is_action_just_released("leftMouse") and not button_just_clicked:
+		print("mouse click detected")
+		selected_ant = null
+		for ant in ants:
+			ant.selected = false
+			ant.find_child("SelectedRing").visible = false
+			if ant.mouse_hovered:
+				selected_ant = ant
+		if selected_ant != null:
+			selected_ant.selected = true
+			selected_ant.find_child("SelectedRing").visible = true
+			update_gui()
+	
+	button_just_clicked = false
+	
 	
