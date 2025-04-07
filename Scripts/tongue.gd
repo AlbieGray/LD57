@@ -34,7 +34,7 @@ func _physics_process(_delta: float) -> void:
 func makepath() -> void:
 	if(!retreat):
 		if(ants.size() != 0):
-			nav_agent.target_position = rooms.pick_random().global_position
+			nav_agent.target_position = ants.pick_random().global_position
 		else:
 			nav_agent.target_position = initial_pos
 	elif(retreat):
