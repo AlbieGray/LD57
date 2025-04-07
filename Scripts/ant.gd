@@ -12,6 +12,7 @@ var tilemap = null
 @onready var path = $DigPath/digPath
 var current_path = path
 @onready var follow = $DigPath/digPath/followPath
+@onready var game = get_parent()
 
 var display_name = "unnamed"
 
@@ -65,8 +66,6 @@ func _process(delta: float) -> void:
 		if current_path_follow.progress_ratio >= 1:
 			making_room = false
 	
-	if selected and Input.is_action_just_pressed("make_room"):
-		make_room()
 	
 	
 	# making line and path
@@ -119,6 +118,11 @@ func _process(delta: float) -> void:
 
 
 func make_room() -> void:
+	if game.stone < game.NEW_ROOM_COST:
+		print("not enough stone!")
+		return
+	game.stone -= game.NEW_ROOM_COST
+	game.update_gui()
 	making_room = true
 	current_path = room_path.instantiate()
 	add_child(current_path)
@@ -134,7 +138,14 @@ func make_room() -> void:
 func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer and not pathfinding:
 		var coords = body.get_coords_for_body_rid(body_rid)
+		var tile_type = tilemap.get_cell_atlas_coords(coords)
 		body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(1, 0))
+		if tile_type == Vector2i(2, 0):
+			game.stone += 1
+			game.update_gui()
+		if tile_type == Vector2i(3, 0):
+			game.food += 1
+			game.update_gui()
 
 
 func set_speech(text, timeout=3) -> void:

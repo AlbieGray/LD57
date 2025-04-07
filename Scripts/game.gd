@@ -12,15 +12,30 @@ var end := Vector2.ZERO
 var rope 
 @onready var tip = $Tongue
 
+var stone = 0
+var food = 0
+
+const NEW_ANT_COST = 50
+const NEW_ROOM_COST = 50
+
 func make_new_ant():
 	if selected_ant == null:
 		print("select an ant first!")
 		return
-	else:
-		var new_ant = ant_scene.instantiate()
-		new_ant.line = $LineDrawer/Line2D
-		new_ant.tilemap = $Ground/TileMapLayer
-		add_child(new_ant)
+	if food <= NEW_ANT_COST:
+		print("not enough food!")
+		return
+	food -= NEW_ANT_COST
+	update_gui()
+	var new_ant = ant_scene.instantiate()
+	var rng = RandomNumberGenerator.new()
+	new_ant.position = selected_ant.position + Vector2(rng.randf_range(-10, 10), rng.randf_range(-10, 10))
+	new_ant.line = $LineDrawer/Line2D
+	new_ant.tilemap = $Ground/TileMapLayer
+	add_child(new_ant)
+
+func update_gui():
+	$HUD.update_resource_counts(stone, food)
 
 func _ready():
 	$Ant.line = $LineDrawer/Line2D
@@ -36,6 +51,5 @@ func _process(_delta: float) -> void:
 	var past = end
 	end = tip.global_position
 	if end != Vector2.ZERO and end != past:
-		print("changing rope length")
 		rope.extend_rope(end)
 		rope.shrink_rope(end)
