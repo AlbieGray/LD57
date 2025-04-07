@@ -16,7 +16,7 @@ var tilemap = null
 var current_path = path
 @onready var follow = $DigPath/digPath/followPath
 @onready var game = get_parent()
-@onready var sprite = $Sprite2D
+@onready var sprite = $AnimatedSprite2D
 
 var display_name = "unnamed"
 
@@ -43,14 +43,18 @@ func _ready():
 	var second_names = ant_names_script.new().second_names
 	display_name = first_names.pick_random() + " " + second_names.pick_random()
 	$NameTag.text = display_name
-	
-	$Sprite2D.frame = randi_range(0, 4)
+	if queen:
+		sprite.animation = "Queen"
+	else:
+		var animation_names = sprite.sprite_frames.get_animation_names()
+		var random_ani_name = animation_names[randi() % animation_names.size()]
 
 func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 	
 	if blockading:
 		return
+		
 	
 	# detect if clicked
 	if Input.is_action_just_pressed("rightMouse"):
@@ -61,21 +65,17 @@ func _process(delta: float) -> void:
 	
 	 # path following
 	if digging and current_path_follow != null:
-		if not $SFX/AntMove.playing:
-			$SFX/AntMove.play()
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
-		$Sprite2D.rotation = current_path_follow.rotation + 90
+		sprite.rotation = current_path_follow.rotation + 90
 		if current_path_follow.progress_ratio >= 1:
 			digging = false
 			path.curve.clear_points()
 	
 	if making_room:
-		if not $SFX/MakeRoom.playing:
-			$SFX/MakeRoom.play()
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
-		$Sprite2D.rotation = current_path_follow.rotation + 90
+		sprite.rotation = current_path_follow.rotation + 90
 		if current_path_follow.progress_ratio >= 1:
 			making_room = false
 	
@@ -162,19 +162,15 @@ func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, 
 		var tile_type = tilemap.get_cell_atlas_coords(coords)
 		
 		# blockade is indestructible
-		if tile_type != Vector2i(4, 0):
-			body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(1, 0))
-		if tile_type == Vector2i(2, 0):
-			$SFX/BreakStone.play()
+		if tile_type != Vector2i(5, 4):
+			body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(8, 0))
+		if tile_type == Vector2i(5, 5):
 			game.stone += 1
 			game.update_gui()
-		if tile_type == Vector2i(3, 0):
-			$SFX/BreakFood.play()
+		if tile_type == Vector2i(7, 3):
 			game.food += 1
 			game.update_gui()
 
-func play_blockade_finished():
-	$SFX/BlockadeFinished.play()
 
 func set_speech(text, timeout=3) -> void:
 	$Speech.modulate = Color(255, 255, 255, 255)

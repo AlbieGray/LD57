@@ -8,7 +8,6 @@ const BLOCKADE_SPEED = 10
 
 @onready var tilemap = get_parent().tilemap
 
-@onready var game = get_parent()
 @onready var ant = get_parent().selected_ant
 
 func _ready() -> void:
@@ -24,15 +23,21 @@ func _process(delta):
 	position = follower.position
 	
 	var map_coords = tilemap.local_to_map(position)
-	tilemap.set_cell(map_coords, tilemap.tile_set.get_source_id(0), Vector2(4, 0))
-	if not map_coords in game.blockade_tiles:
-		game.blockade_tiles.append(map_coords)
+	print(map_coords)
+	tilemap.set_cell(map_coords, tilemap.tile_set.get_source_id(0), Vector2(5, 4))
 	
 	if follower.progress_ratio == 1:
 		ant.blockading = false
-		ant.play_blockade_finished()
 		get_parent().blockades.erase(self)
 		queue_free()
-	
-	if not $SFX/BuildingBlockade.playing:
-		$SFX/BuildingBlockade.play()
+
+#func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	#print(body)
+	#if body is TileMapLayer:
+		#var coords = body.get_coords_for_body_rid(body_rid)
+		#var tile_type = tilemap.get_cell_atlas_coords(coords)
+		#print(tile_type)
+		#if tile_type == Vector2i(1, 0):
+			#print(coords)
+			#print("reinforcing")
+			#body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(4, 0))

@@ -27,9 +27,6 @@ var camera_drag_previous_point = Vector2(0, 0)
 var ants = []
 var blockades = []
 
-var blockade_tiles = []
-const BLOCKADE_DECAY_RATE = 1
-
 var button_just_clicked = false
 
 @onready var tilemap = $Ground/TileMapLayer
@@ -40,7 +37,6 @@ func make_new_ant():
 		return
 	if food <= NEW_ANT_COST:
 		print("not enough food!")
-		$CanvasLayer/HUD.error_message("not enough food!")
 		return
 	
 	var in_room = false
@@ -50,11 +46,7 @@ func make_new_ant():
 			in_room = true
 	if not in_room:
 		print("must be in a room to make a new ant")
-		$CanvasLayer/HUD.error_message("must be in a room to make a new ant")
 		return
-	
-	$SFX/AntSpawn.position = selected_ant.position
-	$SFX/AntSpawn.play()
 		
 	food -= NEW_ANT_COST
 	update_gui()
@@ -67,8 +59,6 @@ func make_new_ant():
 	ants.append(new_ant)
 
 func kill_ant(ant):
-	$SFX/AntDeath.position = ant.position
-	$SFX/AntDeath.play()
 	for blockade in blockades:
 		if blockade.ant == ant:
 			blockades.erase(blockade)
@@ -113,6 +103,7 @@ func make_blockade():
 	blockades.append(blockader)
 
 func _ready():
+	#$Ant.line = $LineDrawer/Line2D
 	$Ant.tilemap = $Ground/TileMapLayer
 	$Ant.queen = true
 	$Ant.display_name = "Queen \n"+ $Ant.display_name
@@ -126,7 +117,7 @@ func _ready():
 	add_child(rope)
 	rope.spawn_rope(start, end)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var past = end
 	end = tip.global_position
 	if end != Vector2.ZERO and end != past:
@@ -137,8 +128,8 @@ func _process(delta: float) -> void:
 		dragging_camera = true
 		camera_drag_previous_point = get_viewport().get_mouse_position()
 	elif Input.is_action_pressed("leftMouse"):
-		var camera_delta = camera_drag_previous_point - get_viewport().get_mouse_position()
-		$Camera.position += camera_delta
+		var delta = camera_drag_previous_point - get_viewport().get_mouse_position()
+		$Camera.position += delta
 		
 		camera_drag_previous_point = get_viewport().get_mouse_position()
 	
@@ -148,17 +139,11 @@ func _process(delta: float) -> void:
 			ant.selected = false
 			ant.find_child("SelectedRing").visible = false
 			if ant.mouse_hovered:
-				$SFX/Click.play()
 				selected_ant = ant
 		if selected_ant != null:
 			selected_ant.selected = true
 			selected_ant.find_child("SelectedRing").visible = true
 		update_gui()
-	
-	for blockade_tile in blockade_tiles:
-		var rand = randf()
-		if rand < delta*BLOCKADE_DECAY_RATE:
-			tilemap.set_cell(blockade_tile, tilemap.tile_set.get_source_id(0), Vector2(1, 0))
 	
 	button_just_clicked = false
 	

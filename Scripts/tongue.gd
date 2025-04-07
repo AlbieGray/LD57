@@ -30,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 	if(nav_agent.is_navigation_finished()):
 		retreat = !retreat
 		if(has_ant):
-			get_node("Sprite2D").queue_free()
+			get_node("AnimatedSprite2D").queue_free()
 			has_ant = false
 	if(distracted):
 		nav_agent.target_position = ants[target_ant].global_position
@@ -39,8 +39,8 @@ func _physics_process(_delta: float) -> void:
 			#TODO: release ant
 			var new_ant = ants.pick_random().duplicate()
 			new_ant.position = global_position
-			new_ant.sprite = get_node("Sprite2D")
-			get_node("Sprite2D").queue_free()
+			new_ant.sprite = get_node("AnimatedSprite2D")
+			get_node("AnimatedSprite2D").queue_free()
 			has_ant = false
 	else:
 		makepath()
@@ -69,7 +69,7 @@ func makepath() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Ants")):
 		game.kill_ant(body)
-		var sprite = body.get_node("Sprite2D").duplicate()
+		var sprite = body.get_node("AnimatedSprite2D").duplicate()
 		add_child(sprite)
 		has_ant = true
 		print("Touch ant")

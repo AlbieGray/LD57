@@ -1,47 +1,100 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctsdok0e1krnr"]
+[gd_scene load_steps=16 format=3 uid="uid://ctsdok0e1krnr"]
 
 [ext_resource type="PackedScene" uid="uid://bj2yeydheectr" path="res://Scenes/Ground.tscn" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://cuiyvcx3bcqaf" path="res://Scripts/game.gd" id="1_kldst"]
+[ext_resource type="Texture2D" uid="uid://c2k8edynk27nb" path="res://assets/sprites/Backdrop.png" id="2_fgofq"]
 [ext_resource type="PackedScene" uid="uid://qjo51es7hbnr" path="res://Scenes/Ant.tscn" id="2_j5yw3"]
+[ext_resource type="Texture2D" uid="uid://bocae4xi6n1pk" path="res://assets/sprites/Bushes.png" id="3_71axn"]
+[ext_resource type="Texture2D" uid="uid://buhe32cwjpqg8" path="res://assets/sprites/Clouds.png" id="3_dahhg"]
+[ext_resource type="Texture2D" uid="uid://beqcu8q7oxquk" path="res://assets/sprites/Anteater.png" id="4_dahhg"]
+[ext_resource type="Texture2D" uid="uid://dvfufrt6puvti" path="res://assets/sprites/Grass.png" id="5_3so38"]
 [ext_resource type="PackedScene" uid="uid://cpjracm4ua184" path="res://Scenes/hud.tscn" id="5_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://bbi4fjfl186od" path="res://Scenes/rope/tongue.tscn" id="6_7lihs"]
 [ext_resource type="PackedScene" uid="uid://ba5jguls25ggu" path="res://Scenes/room.tscn" id="6_fgofq"]
-[ext_resource type="AudioStream" uid="uid://bcdttmcaxf4dw" path="res://assets/SFX/AntDeath.wav" id="7_fgofq"]
-[ext_resource type="AudioStream" uid="uid://dsxdnre412unn" path="res://assets/SFX/AntSpawned.wav" id="8_2irst"]
-[ext_resource type="AudioStream" uid="uid://day28efsot30i" path="res://assets/SFX/Click.wav" id="9_bf53h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cx6b"]
+atlas = ExtResource("4_dahhg")
+region = Rect2(0, 0, 320, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxwew"]
+atlas = ExtResource("4_dahhg")
+region = Rect2(0, 208, 320, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_acvyw"]
+atlas = ExtResource("4_dahhg")
+region = Rect2(0, 416, 320, 208)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_alh3a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cx6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxwew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_acvyw")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
 
 [node name="game" type="Node"]
 script = ExtResource("1_kldst")
 
 [node name="Ground" parent="." instance=ExtResource("1_gl6un")]
 
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Backdrop" type="Sprite2D" parent="Props"]
+position = Vector2(320, -47)
+texture = ExtResource("2_fgofq")
+
+[node name="Parallax2D" type="Parallax2D" parent="Props"]
+repeat_size = Vector2(640, 0)
+autoscroll = Vector2(-3, 0)
+repeat_times = 3
+
+[node name="Clouds" type="Sprite2D" parent="Props/Parallax2D"]
+position = Vector2(320, 0)
+texture = ExtResource("3_dahhg")
+
+[node name="Bushes" type="Sprite2D" parent="Props"]
+position = Vector2(317, 19)
+texture = ExtResource("3_71axn")
+
+[node name="Anteater" type="AnimatedSprite2D" parent="Props"]
+position = Vector2(160, -75)
+sprite_frames = SubResource("SpriteFrames_alh3a")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Grass" type="Sprite2D" parent="Props"]
+position = Vector2(320, 12)
+texture = ExtResource("5_3so38")
+
 [node name="Ant" parent="." instance=ExtResource("2_j5yw3")]
-position = Vector2(288, 95)
+position = Vector2(323, 222)
 
 [node name="Tongue" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7lihs")]
-position = Vector2(186, 15)
+position = Vector2(249, 192)
 player = NodePath("../Ant")
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(320, 180)
 limit_left = 0
-limit_smoothed = true
+limit_top = -167
+limit_right = 640
+limit_bottom = 2005
 
 [node name="Room" parent="." instance=ExtResource("6_fgofq")]
-position = Vector2(280, 175)
+position = Vector2(308, 222)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("5_b2bpf")]
+offset_top = -1.0
+offset_bottom = -1.0
 mouse_filter = 2
-
-[node name="SFX" type="Node2D" parent="."]
-
-[node name="AntDeath" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource("7_fgofq")
-
-[node name="AntSpawn" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource("8_2irst")
-
-[node name="Click" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource("9_bf53h")
