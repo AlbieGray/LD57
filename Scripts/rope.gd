@@ -47,7 +47,7 @@ func extend_rope(end: Vector2):
 func shrink_rope(end: Vector2):
 	var last_chain = rope_parts[-1]
 	var new_dist = last_chain.global_position.distance_to(end)
-	if(new_dist <= piece_length/2 and rope_parts.size() != 1):
+	if(new_dist <= rope_close_tolerance and rope_parts.size() != 1):
 		var popped = rope_parts.pop_back()
 		ropeEnd.global_position = popped.global_position
 		popped.queue_free()

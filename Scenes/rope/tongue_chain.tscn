@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bhm5cbnlvkisa" path="res://icon.svg" id="2_fsc12"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bgnh3"]
-radius = 3.0
+radius = 8.0
 height = 26.0
 
 [node name="tongueChain" type="RigidBody2D"]

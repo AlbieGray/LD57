@@ -29,5 +29,4 @@ func makepath() -> void:
 
 func _on_timer_timeout():
 	retreat = !retreat
-	print("retreat")
 	pass
