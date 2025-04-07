@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctsdok0e1krnr"]
+[gd_scene load_steps=7 format=3 uid="uid://ctsdok0e1krnr"]
 
 [ext_resource type="PackedScene" uid="uid://bj2yeydheectr" path="res://Scenes/Ground.tscn" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://cuiyvcx3bcqaf" path="res://Scripts/game.gd" id="1_kldst"]
 [ext_resource type="PackedScene" uid="uid://qjo51es7hbnr" path="res://Scenes/Ant.tscn" id="2_j5yw3"]
 [ext_resource type="PackedScene" uid="uid://cpjracm4ua184" path="res://Scenes/hud.tscn" id="5_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://bbi4fjfl186od" path="res://Scenes/rope/tongue.tscn" id="6_7lihs"]
+[ext_resource type="PackedScene" uid="uid://ba5jguls25ggu" path="res://Scenes/room.tscn" id="6_fgofq"]
 
 [node name="game" type="Node"]
 script = ExtResource("1_kldst")
@@ -22,6 +23,9 @@ player = NodePath("../Ant")
 position = Vector2(320, 180)
 limit_left = 0
 limit_smoothed = true
+
+[node name="Room" parent="." instance=ExtResource("6_fgofq")]
+position = Vector2(280, 175)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

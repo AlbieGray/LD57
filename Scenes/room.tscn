@@ -1,6 +1,6 @@
-[gd_scene load_steps=0 format=3 uid="uid://ba5jguls25ggu"]
+[gd_scene format=3 uid="uid://ba5jguls25ggu"]
 
-[node name="Room" type="Node2D"]
+[node name="Room" type="Node2D" groups=["Rooms"]]
 position = Vector2(-35, 0)
 
 [node name="RoomArea" type="Area2D" parent="."]
