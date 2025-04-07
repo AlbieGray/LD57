@@ -103,6 +103,12 @@ func _ready():
 	end = tip.global_position
 	add_child(rope)
 	rope.spawn_rope(start, end)
+	
+func reset_rope():
+	rope.queue_free()
+	rope = Rope.instantiate()
+	add_child(rope)
+	rope.spawn_rope(start, end)
 
 func _process(_delta: float) -> void:
 	var past = end

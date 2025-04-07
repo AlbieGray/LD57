@@ -27,6 +27,8 @@ func _ready():
 func _physics_process(_delta: float) -> void:
 	ants = get_tree().get_nodes_in_group("Ants")
 	if(nav_agent.is_navigation_finished()):
+		if(retreat):
+			get_parent().reset_rope()
 		retreat = !retreat
 		if(has_ant):
 			get_node("Sprite2D").queue_free()
