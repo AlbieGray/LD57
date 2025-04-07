@@ -56,18 +56,16 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("leftMouse"):
 		if selected:
 			selected = false
-			get_parent().selected_ant = null
 		elif mouse_pos.distance_to(position) < 15:
 			selected = true
 			get_parent().selected_ant = self
 		else:
 			selected = false
-			get_parent().selected_ant = null
 		$SelectedRing.visible = selected
 		game.update_gui()
 	
 	 # path following
-	if digging and selected and current_path_follow != null:
+	if digging and current_path_follow != null:
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
 		$Sprite2D.rotation = current_path_follow.rotation + 90

@@ -11,6 +11,7 @@ region = Rect2(0, 0, 160, 32)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0aatc"]
 
 [sub_resource type="Curve2D" id="Curve2D_c1ub6"]
+resource_local_to_scene = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0aatc"]
 size = Vector2(9, 31)
