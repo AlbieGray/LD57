@@ -21,7 +21,7 @@ pin = NodePath("")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i0wcl")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="tongueSprite" type="Sprite2D" parent="."]
 modulate = Color(0.959708, 3.27289e-06, 0.574776, 1)
 scale = Vector2(0.165, 0.165)
 texture = ExtResource("1_2g2cu")

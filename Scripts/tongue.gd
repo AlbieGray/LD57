@@ -9,9 +9,11 @@ extends CharacterBody2D
 var retreat
 var rooms
 var initial_pos
+var has_ant
 
 func _ready():
 	retreat = false
+	has_ant = false
 	initial_pos = global_position
 	
 #moves the tongue (nav agent)
@@ -20,6 +22,9 @@ func _physics_process(_delta: float) -> void:
 	if(nav_agent.is_navigation_finished()):
 		timer.start()
 		retreat = !retreat
+		if(has_ant):
+			get_node("Sprite2D").queue_free()
+			has_ant = false
 	makepath()
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
 	velocity = dir * speed
@@ -41,6 +46,10 @@ func _on_timer_timeout():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Ants")):
+		body.queue_free()
+		var sprite = body.get_node("Sprite2D").duplicate()
+		add_child(sprite)
+		has_ant = true
 		print("Touch ant")
 		retreat = true
 		timer.stop()
