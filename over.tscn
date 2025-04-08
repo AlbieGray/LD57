@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cj8ttag7ilaxm"]
+[gd_scene load_steps=3 format=3 uid="uid://cj8ttag7ilaxm"]
+
+[ext_resource type="Script" uid="uid://bsb6k6yich34l" path="res://over.gd" id="1_qc7qc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0i1v2"]
 font_size = 35
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qc7qc")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -19,3 +22,13 @@ offset_right = 417.0
 offset_bottom = 236.0
 text = "GAme Over :("
 label_settings = SubResource("LabelSettings_0i1v2")
+
+[node name="RestartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 174.0
+offset_right = 398.0
+offset_bottom = 219.0
+text = "Restart"
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
