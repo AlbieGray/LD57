@@ -69,12 +69,14 @@ position = Vector2(317, 19)
 texture = ExtResource("3_71axn")
 
 [node name="Anteater" type="AnimatedSprite2D" parent="Props"]
+z_index = 1
 position = Vector2(160, -75)
 sprite_frames = SubResource("SpriteFrames_alh3a")
 animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Grass" type="Sprite2D" parent="Props"]
+z_index = 1
 position = Vector2(320, 12)
 texture = ExtResource("5_3so38")
 
@@ -82,7 +84,7 @@ texture = ExtResource("5_3so38")
 position = Vector2(323, 222)
 
 [node name="Tongue" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7lihs")]
-position = Vector2(322, 31)
+position = Vector2(315, 36)
 player = NodePath("../Ant")
 
 [node name="Camera" type="Camera2D" parent="."]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbi4fjfl186od"]
 
-[ext_resource type="Texture2D" uid="uid://bhm5cbnlvkisa" path="res://icon.svg" id="1_2g2cu"]
 [ext_resource type="Script" uid="uid://cm2g15r5haq5q" path="res://Scripts/tongue.gd" id="1_xy2nq"]
+[ext_resource type="Texture2D" uid="uid://d35o56deyihdk" path="res://assets/sprites/Tongue_Tip.png" id="2_i0wcl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i0wcl"]
 radius = 8.0
@@ -21,14 +21,14 @@ player = NodePath(".")
 shape = SubResource("CircleShape2D_i0wcl")
 
 [node name="tongueSprite" type="Sprite2D" parent="."]
-modulate = Color(0.959708, 3.27289e-06, 0.574776, 1)
-scale = Vector2(0.165, 0.165)
-texture = ExtResource("1_2g2cu")
+modulate = Color(1, 0.558456, 0.740954, 1)
+position = Vector2(1.75, 1.5)
+scale = Vector2(0.515625, 1.09375)
+texture = ExtResource("2_i0wcl")
 
 [node name="navAgent" type="NavigationAgent2D" parent="."]
 navigation_layers = 4
 radius = 20.0
-debug_enabled = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0

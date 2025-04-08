@@ -20,6 +20,7 @@ scale = Vector2(1.87, 1.87)
 bias = 0.1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.0507813, 0.0507813)
 texture = ExtResource("1_orlcd")
 

@@ -169,7 +169,7 @@ func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, 
 			game.stone += 1
 			game.update_gui()
 		#food
-		if tile_type == Vector2i(7, 3):
+		if tile_type == Vector2i(5, 3):
 			game.food += 1
 			game.update_gui()
 
