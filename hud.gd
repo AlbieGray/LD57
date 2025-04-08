@@ -2,6 +2,11 @@ extends Control
 
 @onready var game = get_parent().get_parent()
 
+func _ready():
+	$MakeAntButton.text = "make new ant\n"+str(game.NEW_ANT_COST)+" Food"
+	$MakeRoomButton.text = "make new room\n"+str(game.NEW_ROOM_COST)+" Stone"
+	$MakeBlockadeButton.text = "make new blockade\n"+str(game.BLOCKADE_COST)+" Stone"
+
 func update_resource_counts(stone, food):
 	$StoneLabel.text = "Stone: "+str(stone)
 	$FoodLabel.text = "Food: "+str(food)
@@ -10,7 +15,6 @@ func update_button_visibility(new_ant=true, make_room=true, make_blockade=true, 
 	$MakeAntButton.visible = new_ant
 	$MakeRoomButton.visible = make_room
 	$MakeBlockadeButton.visible = make_blockade
-	$DistractButton.visible = distract
 
 func _on_make_ant_button_pressed() -> void:
 	game.button_just_clicked = true
