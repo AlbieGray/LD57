@@ -51,6 +51,14 @@ offset_right = 56.0
 offset_bottom = 49.0
 text = "Food: 0"
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 338.0
+offset_right = 353.0
+offset_bottom = 354.0
+text = "depth: 0"
+
 [connection signal="pressed" from="MakeAntButton" to="." method="_on_make_ant_button_pressed"]
 [connection signal="pressed" from="MakeRoomButton" to="." method="_on_make_room_button_pressed"]
 [connection signal="pressed" from="MakeBlockadeButton" to="." method="_on_make_blockade_button_pressed"]

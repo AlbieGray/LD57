@@ -8,6 +8,8 @@ var room_scene = preload("res://Scenes/room.tscn")
 var blockade_scene = preload("res://Scenes/blockade_maker.tscn")
 var error_message_scene = preload("res://Scenes/error_message.tscn")
 
+var depth = 0
+
 # rope stuff
 var Rope = preload("res://Scenes/rope/rope.tscn")
 var start := Vector2.ZERO
@@ -91,7 +93,7 @@ func kill_ant(ant):
 	update_gui()
 
 func update_gui():
-	$CanvasLayer/HUD.update_resource_counts(stone, food)
+	$CanvasLayer/HUD.update_resource_counts(stone, food, depth)
 	var show_make_ant_button = false
 	var show_make_room_button = false
 	var show_make_blockade_button = false
@@ -131,6 +133,8 @@ func _ready():
 	$Ant.display_name = "Queen \n"+ $Ant.display_name
 	$Ant/NameTag.text = $Ant.display_name
 	
+	depth = $Ant.position.y
+	
 	selected_ant = $Ant
 	ants = [$Ant]
 	
@@ -149,6 +153,8 @@ func reset_rope():
 	add_child(rope)
 
 func _process(delta: float) -> void:
+	depth = $Ant.position.y
+	$CanvasLayer/HUD.update_resource_counts(stone, food, depth)
 	var past = end
 	end = tip.global_position
 	if end != Vector2.ZERO and end != past:
