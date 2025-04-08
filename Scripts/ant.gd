@@ -170,10 +170,12 @@ func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, 
 		# blockade is indestructible
 		if tile_type != Vector2i(5, 4):
 			body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(8, 0))
+		#stone
 		if tile_type == Vector2i(5, 5):
 			$SFX/BreakStone.play()
 			game.stone += 1
 			game.update_gui()
+		#food
 		if tile_type == Vector2i(7, 3):
 			$SFX/BreakFood.play()
 			game.food += 1

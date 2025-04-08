@@ -6,6 +6,7 @@ var ant_scene = preload("res://Scenes/Ant.tscn")
 var line_scene = preload("res://Scenes/line_drawer.tscn")
 var room_scene = preload("res://Scenes/room.tscn")
 var blockade_scene = preload("res://Scenes/blockade_maker.tscn")
+var error_message_scene = preload("res://Scenes/error_message.tscn")
 
 # rope stuff
 var Rope = preload("res://Scenes/rope/rope.tscn")
@@ -21,6 +22,10 @@ const NEW_ANT_COST = 50
 const NEW_ROOM_COST = 50
 const BLOCKADE_COST = 100
 
+var blockade_tiles = []
+const BLOCKADE_DECAY_RATE = 1
+ 
+
 var dragging_camera = false
 var camera_drag_previous_point = Vector2(0, 0)
 
@@ -31,12 +36,19 @@ var button_just_clicked = false
 
 @onready var tilemap = $Ground/TileMapLayer
 
+func error_message(text):
+	var error = error_message_scene.instantiate()
+	add_child(error)
+	error.init(text)
+
 func make_new_ant():
 	if selected_ant == null:
 		print("select an ant first!")
+		error_message("select an ant first!")
 		return
 	if food <= NEW_ANT_COST:
 		print("not enough food!")
+		error_message("not enough food!")
 		return
 	
 	var in_room = false
@@ -46,6 +58,7 @@ func make_new_ant():
 			in_room = true
 	if not in_room:
 		print("must be in a room to make a new ant")
+		error_message("must be in a room to make a new ant")
 		return
 		
 	food -= NEW_ANT_COST
@@ -116,9 +129,15 @@ func _ready():
 	start = rope.get_child(0).global_position
 	end = tip.global_position
 	add_child(rope)
-	rope.spawn_rope(start, end)
+	
+func reset_rope():
+	rope.queue_free()
+	rope = Rope.instantiate()
+	start = rope.get_child(0).global_position
+	end = tip.global_position
+	add_child(rope)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var past = end
 	end = tip.global_position
 	if end != Vector2.ZERO and end != past:
@@ -130,8 +149,8 @@ func _process(_delta: float) -> void:
 		dragging_camera = true
 		camera_drag_previous_point = get_viewport().get_mouse_position()
 	elif Input.is_action_pressed("leftMouse"):
-		var delta = camera_drag_previous_point - get_viewport().get_mouse_position()
-		$Camera.position += delta
+		var camera_delta = camera_drag_previous_point - get_viewport().get_mouse_position()
+		$Camera.position += camera_delta
 		
 		camera_drag_previous_point = get_viewport().get_mouse_position()
 	
@@ -146,6 +165,11 @@ func _process(_delta: float) -> void:
 			selected_ant.selected = true
 			selected_ant.find_child("SelectedRing").visible = true
 		update_gui()
+	
+	for blockade_tile in blockade_tiles:
+		var rand = randf()
+		if rand < delta*BLOCKADE_DECAY_RATE:
+			tilemap.set_cell(blockade_tile, tilemap.tile_set.get_source_id(0), Vector2(1, 0))
 	
 	button_just_clicked = false
 	
