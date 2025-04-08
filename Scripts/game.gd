@@ -59,6 +59,7 @@ func make_new_ant():
 	ants.append(new_ant)
 
 func kill_ant(ant):
+	$SFX/AntDeath.play()
 	for blockade in blockades:
 		if blockade.ant == ant:
 			blockades.erase(blockade)
@@ -126,6 +127,7 @@ func reset_rope():
 func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("leftMouse"):
+		$SFX/Click.play()
 		dragging_camera = true
 		camera_drag_previous_point = get_viewport().get_mouse_position()
 	elif Input.is_action_pressed("leftMouse"):
