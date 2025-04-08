@@ -6,12 +6,13 @@ func _ready():
 	$MakeAntButton.text = "make new ant\n"+str(game.NEW_ANT_COST)+" Food"
 	$MakeRoomButton.text = "make new room\n"+str(game.NEW_ROOM_COST)+" Stone"
 	$MakeBlockadeButton.text = "make new blockade\n"+str(game.BLOCKADE_COST)+" Stone"
+	update_button_visibility()
 
 func update_resource_counts(stone, food):
 	$StoneLabel.text = "Stone: "+str(stone)
 	$FoodLabel.text = "Food: "+str(food)
 
-func update_button_visibility(new_ant=true, make_room=true, make_blockade=true, distract=true):
+func update_button_visibility(new_ant=false, make_room=false, make_blockade=false, distract=false):
 	$MakeAntButton.visible = new_ant
 	$MakeRoomButton.visible = make_room
 	$MakeBlockadeButton.visible = make_blockade

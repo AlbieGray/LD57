@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://bcdttmcaxf4dw" path="res://assets/SFX/AntDeath.wav" id="12_3cx6b"]
 [ext_resource type="PackedScene" uid="uid://cj8ttag7ilaxm" path="res://over.tscn" id="12_wxwew"]
 [ext_resource type="AudioStream" uid="uid://day28efsot30i" path="res://assets/SFX/Click.wav" id="13_wxwew"]
+[ext_resource type="AudioStream" uid="uid://djathlaiywjft" path="res://assets/SFX/MenuTheme.wav" id="14_wxwew"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3cx6b"]
 atlas = ExtResource("4_dahhg")
@@ -112,3 +113,7 @@ stream = ExtResource("12_3cx6b")
 
 [node name="Click" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("13_wxwew")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_wxwew")
+autoplay = true
