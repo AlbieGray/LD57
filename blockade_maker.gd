@@ -19,6 +19,8 @@ func _ready() -> void:
 		path.curve.set_point_position(i, path.curve.get_point_position(i)-offset)
 
 func _process(delta):
+	if not $BuildBlockade.playing:
+		$BuildBlockade.play()
 	follower.progress += BLOCKADE_SPEED*delta
 	position = follower.position
 	
@@ -27,17 +29,7 @@ func _process(delta):
 	tilemap.set_cell(map_coords, tilemap.tile_set.get_source_id(0), Vector2(5, 4))
 	
 	if follower.progress_ratio == 1:
+		ant.play_blockade_finished()
 		ant.blockading = false
 		get_parent().blockades.erase(self)
 		queue_free()
-
-#func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	#print(body)
-	#if body is TileMapLayer:
-		#var coords = body.get_coords_for_body_rid(body_rid)
-		#var tile_type = tilemap.get_cell_atlas_coords(coords)
-		#print(tile_type)
-		#if tile_type == Vector2i(1, 0):
-			#print(coords)
-			#print("reinforcing")
-			#body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(4, 0))
