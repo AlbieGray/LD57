@@ -8,6 +8,6 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomArea"]
-position = Vector2(-149, 21.5363)
+position = Vector2(-117, 22)
 scale = Vector2(4.01042, 4.36436)
-polygon = PackedVector2Array(5, 0, 77, 0, 73, -13, 65, -23, 49, -29, 32, -29, 19, -24, 11, -15)
+polygon = PackedVector2Array(13.4649, -0.581139, 64.3324, -1.0394, 59.5948, -12.725, 48.6233, -21.4318, 38.1506, -23.7231, 27.6779, -21.2027, 18.7013, -14.3289, 14.961, -8.82977)

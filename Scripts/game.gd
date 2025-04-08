@@ -64,10 +64,12 @@ func make_new_ant():
 	food -= NEW_ANT_COST
 	update_gui()
 	var new_ant = ant_scene.instantiate()
+	
 	var rng = RandomNumberGenerator.new()
 	new_ant.position = selected_ant.position + Vector2(rng.randf_range(-10, 10), rng.randf_range(-10, 10))
 	new_ant.tilemap = $Ground/TileMapLayer
 	add_child(new_ant)
+	new_ant.pick_sprite()
 	
 	ants.append(new_ant)
 

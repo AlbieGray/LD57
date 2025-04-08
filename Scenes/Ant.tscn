@@ -365,7 +365,7 @@ texture = ExtResource("2_0aatc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_0aatc")
-animation = &"Black"
+animation = &"Queen"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 12
@@ -408,7 +408,7 @@ offset_bottom = 18.0
 metadata/_edit_use_anchors_ = true
 
 [node name="VoicelineTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 autostart = true
 
 [node name="VoicelineFadeout" type="Timer" parent="."]
@@ -437,9 +437,11 @@ stream = ExtResource("7_bcbg1")
 
 [node name="BreakFood" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("8_dr5yy")
+volume_db = -16.838
 
 [node name="BreakStone" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("9_ps40g")
+volume_db = -15.848
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

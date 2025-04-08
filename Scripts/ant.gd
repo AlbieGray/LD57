@@ -20,6 +20,8 @@ var current_path = path
 
 var display_name = "unnamed"
 
+var chosen_sprite
+
 var room_path = preload("res://Scenes/room_path.tscn")
 
 var mouse_pos = null
@@ -34,20 +36,28 @@ var blockading = false
 
 const ant_names_script = preload("res://Scripts/ant_names.gd")
 
+func pick_sprite():
+	var animation_names = sprite.sprite_frames.get_animation_names()
+	print(animation_names)
+	var x = randi() % animation_names.size()
+	if x == 3:
+		x=4
+	var random_ani_name = animation_names[x]
+	chosen_sprite = random_ani_name
+	sprite.animation = chosen_sprite
+	sprite.play(chosen_sprite)
+
 func _ready():
-	#var line_draw = line_scene.instantiate()
-	#add_child(line_draw)
-	#line = line_draw.find_child("Line2D")
+	$SFX/AntSpawn.play()
 	
 	var first_names = ant_names_script.new().first_names
 	var second_names = ant_names_script.new().second_names
 	display_name = first_names.pick_random() + " " + second_names.pick_random()
 	$NameTag.text = display_name
-	if queen:
-		sprite.animation = "Queen"
-	else:
-		var animation_names = sprite.sprite_frames.get_animation_names()
-		var random_ani_name = animation_names[randi() % animation_names.size()]
+	
+	chosen_sprite = "Queen"
+	sprite.animation = chosen_sprite
+	sprite.play(chosen_sprite)
 
 func _process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
@@ -63,8 +73,11 @@ func _process(delta: float) -> void:
 			path.curve.clear_points()
 			drawing = true
 	
-	 # path following
+	# path following
 	if digging and current_path_follow != null:
+		sprite.play(chosen_sprite)
+		if not $SFX/AntMove.playing:
+			$SFX/AntMove.play()
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
 		sprite.rotation = current_path_follow.rotation + 90
@@ -73,6 +86,7 @@ func _process(delta: float) -> void:
 			path.curve.clear_points()
 	
 	if making_room:
+		sprite.play(chosen_sprite)
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
 		sprite.rotation = current_path_follow.rotation + 90
@@ -147,6 +161,9 @@ func make_room() -> void:
 	for i in range(current_path.curve.point_count):
 		current_path.curve.set_point_position(i, current_path.curve.get_point_position(i)-make_room_offset)
 
+func play_blockade_finished():
+	$SFX/BlockadeFinished.play()
+
 func make_blockade():
 	if game.stone < game.BLOCKADE_COST:
 		print("not enough stone!")
@@ -166,10 +183,12 @@ func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, 
 			body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(8, 0))
 		#stone
 		if tile_type == Vector2i(5, 5):
+			$SFX/BreakStone.play()
 			game.stone += 1
 			game.update_gui()
 		#food
 		if tile_type == Vector2i(5, 3):
+			$SFX/BreakFood.play()
 			game.food += 1
 			game.update_gui()
 
@@ -182,7 +201,8 @@ func set_speech(text, timeout=3) -> void:
 	text_fading = true
 
 func _on_voiceline_timer_timeout() -> void:
-	set_speech("stuff", 3)
+	var words = ["Allons-y!", "For the Queen!", "Give me something to do.", "Put me to work."]
+	set_speech(words.pick_random(), 3)
 
 
 func _on_voiceline_fadeout_timeout() -> void:
