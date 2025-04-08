@@ -4,7 +4,7 @@ enum state{idle, following_path,}
 var current_path_follow:PathFollow2D = null
 var make_room_offset:Vector2 = Vector2(0, 0)
 
-@export var speed = 200
+@export var speed = 20
 @onready var followPath = $DigPath/digPath/followPath
 
 var queen = false
@@ -201,7 +201,7 @@ func set_speech(text, timeout=3) -> void:
 	text_fading = true
 
 func _on_voiceline_timer_timeout() -> void:
-	var words = ["Allons-y!", "For the Queen!", "Give me something to do.", "Put me to work."]
+	var words = ["Allons-y!", "I love dirt!", "I am and ant and I'm digging a hole"]
 	set_speech(words.pick_random(), 3)
 
 
