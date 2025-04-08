@@ -38,7 +38,6 @@ func _ready():
 	#var line_draw = line_scene.instantiate()
 	#add_child(line_draw)
 	#line = line_draw.find_child("Line2D")
-	$SFX/AntSpawn.play()
 	
 	var first_names = ant_names_script.new().first_names
 	var second_names = ant_names_script.new().second_names
@@ -66,8 +65,6 @@ func _process(delta: float) -> void:
 	
 	 # path following
 	if digging and current_path_follow != null:
-		if not $SFX/AntMove.playing:
-			$SFX/AntMove.play()
 		current_path_follow.progress += delta*speed
 		position = current_path_follow.position
 		sprite.rotation = current_path_follow.rotation + 90
@@ -150,9 +147,6 @@ func make_room() -> void:
 	for i in range(current_path.curve.point_count):
 		current_path.curve.set_point_position(i, current_path.curve.get_point_position(i)-make_room_offset)
 
-func play_blockade_finished():
-	$SFX/BlockadeFinished.play()
-
 func make_blockade():
 	if game.stone < game.BLOCKADE_COST:
 		print("not enough stone!")
@@ -170,12 +164,12 @@ func _on_area_2d_body_shape_entered(body_rid: RID, body, body_shape_index: int, 
 		# blockade is indestructible
 		if tile_type != Vector2i(5, 4):
 			body.set_cell(coords, body.tile_set.get_source_id(0), Vector2(8, 0))
+		#stone
 		if tile_type == Vector2i(5, 5):
-			$SFX/BreakStone.play()
 			game.stone += 1
 			game.update_gui()
+		#food
 		if tile_type == Vector2i(7, 3):
-			$SFX/BreakFood.play()
 			game.food += 1
 			game.update_gui()
 

@@ -50,7 +50,6 @@ func _physics_process(_delta: float) -> void:
 			nav_agent.target_position = ants[target_ant].global_position
 		else:
 			nav_agent.target_position = initial_pos
-	nav_agent.target_position = get_global_mouse_position()
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
 	velocity = dir * speed
 	move_and_slide()
