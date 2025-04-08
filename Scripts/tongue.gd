@@ -26,6 +26,7 @@ func _ready():
 	
 #moves the tongue (nav agent)
 func _physics_process(_delta: float) -> void:
+	speed = global_position.y * 0.05 + 20
 	ants = get_tree().get_nodes_in_group("Ants")
 	if(nav_agent.is_navigation_finished()):
 		if(retreat):

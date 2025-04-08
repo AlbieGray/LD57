@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://cm2g15r5haq5q" path="res://Scripts/tongue.gd" id="1_xy2nq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i0wcl"]
-radius = 11.0454
+radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b00ln"]
-radius = 16.0
+radius = 14.0
 
 [node name="Tongue" type="CharacterBody2D" node_paths=PackedStringArray("player")]
 collision_layer = 3
