@@ -17,6 +17,8 @@ func _ready() -> void:
 	var offset = path.curve.get_point_position(0)-ant.position
 	for i in range(path.curve.point_count):
 		path.curve.set_point_position(i, path.curve.get_point_position(i)-offset)
+	
+	
 
 func _process(delta):
 	if not $BuildBlockade.playing:
