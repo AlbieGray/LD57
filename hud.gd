@@ -8,9 +8,10 @@ func _ready():
 	$MakeBlockadeButton.text = "make new blockade\n"+str(game.BLOCKADE_COST)+" Stone"
 	update_button_visibility()
 
-func update_resource_counts(stone, food):
+func update_resource_counts(stone, food, depth):
 	$StoneLabel.text = "Stone: "+str(stone)
 	$FoodLabel.text = "Food: "+str(food)
+	$Label.text = "Depth: "+str(int(depth)-222)
 
 func update_button_visibility(new_ant=false, make_room=false, make_blockade=false, distract=false):
 	$MakeAntButton.visible = new_ant
