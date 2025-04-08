@@ -7,7 +7,7 @@
 script = ExtResource("1_cjseh")
 
 [node name="ropeStart" parent="." instance=ExtResource("2_o4axc")]
-position = Vector2(314, 13)
+position = Vector2(295, -26)
 
 [node name="ropeEnd" parent="." instance=ExtResource("2_o4axc")]
 position = Vector2(128, 11)

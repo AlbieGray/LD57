@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cm2g15r5haq5q" path="res://Scripts/tongue.gd" id="1_xy2nq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i0wcl"]
-radius = 13.0
+radius = 11.0454
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b00ln"]
 radius = 16.0
@@ -28,9 +28,10 @@ texture = ExtResource("1_2g2cu")
 [node name="navAgent" type="NavigationAgent2D" parent="."]
 navigation_layers = 4
 radius = 20.0
+debug_enabled = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 2.0
 autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]

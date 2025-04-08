@@ -21,13 +21,15 @@ func _ready():
 	initial_pos = global_position
 	target_ant = -1
 	ants = get_tree().get_nodes_in_group("Ants")
-	nav_agent.target_position = ants.pick_random().global_position
+	nav_agent.target_position = initial_pos
 	makepath()
 	
 #moves the tongue (nav agent)
 func _physics_process(_delta: float) -> void:
 	ants = get_tree().get_nodes_in_group("Ants")
 	if(nav_agent.is_navigation_finished()):
+		if(retreat):
+			get_parent().reset_rope()
 		retreat = !retreat
 		if(has_ant):
 			get_node("AnimatedSprite2D").queue_free()
@@ -48,7 +50,6 @@ func _physics_process(_delta: float) -> void:
 			nav_agent.target_position = ants[target_ant].global_position
 		else:
 			nav_agent.target_position = initial_pos
-	
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
 	velocity = dir * speed
 	move_and_slide()
@@ -65,7 +66,7 @@ func makepath() -> void:
 		target_ant = -1
 
 
-#if tongue touches the 
+#if tongue touches the ant
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Ants")):
 		game.kill_ant(body)
@@ -75,7 +76,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		print("Touch ant")
 		retreat = true
 		timer.stop()
-
+		
 #TODO: change ant to grab index of ant
 func got_distracted(ant):
 	distracted = !distracted

@@ -2,21 +2,28 @@ extends Node2D
 
 var RopePiece = preload("res://Scenes/rope/tongue_chain.tscn")
 var rope_parts := []
-var piece_length := 23.0
-var rope_close_tolerance := 20.0
+var piece_length := 20.0
+var rope_close_tolerance := 18.0
 var rope_points : PackedVector2Array = []
 var distance
+var end 
+var tip
 
 @onready var ropeStart = $ropeStart
 @onready var ropeEnd = $ropeEnd
 @onready var ropeStartJoint = $ropeStart/Col/Pin
 @onready var ropeEndJoint = $ropeEnd/Col/Pin
 
-#doesn't do anything currently (i think)
+func _ready():
+	tip = get_parent().get_node("Tongue")
+	var start = get_child(0).global_position
+	end = tip.global_position
+	spawn_rope(start, end)
+	
 func _process(_delta):
-	create_rope_points()
-	if !rope_points.is_empty():
-		queue_redraw()
+	end = tip.global_position
+	extend_rope(end)
+	#shrink_rope(end)
 	
 #called to initialise rope
 func spawn_rope(start: Vector2, end: Vector2):
