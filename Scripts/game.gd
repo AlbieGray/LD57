@@ -124,13 +124,16 @@ func make_blockade():
 	blockades.append(blockader)
 
 func _ready():
-	#$Ant.line = $LineDrawer/Line2D
 	$Ant.tilemap = $Ground/TileMapLayer
 	$Ant.queen = true
+	$Ant.selected = true
 	$Ant.display_name = "Queen \n"+ $Ant.display_name
 	$Ant/NameTag.text = $Ant.display_name
 	
+	selected_ant = $Ant
 	ants = [$Ant]
+	
+	update_gui()
 	
 	rope = Rope.instantiate()
 	start = rope.get_child(0).global_position
