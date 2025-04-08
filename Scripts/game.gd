@@ -77,9 +77,14 @@ func kill_ant(ant):
 		if blockade.ant == ant:
 			blockades.erase(blockade)
 			blockade.queue_free()
+	if(ant.queen):
+		$CanvasLayer/over.show()
+		$CanvasLayer/HUD.hide()
+		pass
 	ant.queue_free()
 	ants.erase(ant)
 	selected_ant = null
+	
 	update_gui()
 
 func update_gui():
