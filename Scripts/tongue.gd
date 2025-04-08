@@ -52,6 +52,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			nav_agent.target_position = initial_pos
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
+	$tongueSprite.rotation = dir.angle() - PI/2
 	velocity = dir * speed
 	move_and_slide()
 

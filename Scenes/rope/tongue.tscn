@@ -22,9 +22,11 @@ shape = SubResource("CircleShape2D_i0wcl")
 
 [node name="tongueSprite" type="Sprite2D" parent="."]
 modulate = Color(1, 0.558456, 0.740954, 1)
-position = Vector2(1.75, 1.5)
+position = Vector2(0, -16)
 scale = Vector2(0.515625, 1.09375)
 texture = ExtResource("2_i0wcl")
+centered = false
+offset = Vector2(-13.03, 0)
 
 [node name="navAgent" type="NavigationAgent2D" parent="."]
 navigation_layers = 4
