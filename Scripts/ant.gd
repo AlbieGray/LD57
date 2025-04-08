@@ -201,7 +201,10 @@ func set_speech(text, timeout=3) -> void:
 	text_fading = true
 
 func _on_voiceline_timer_timeout() -> void:
-	var words = ["Allons-y!", "I love dirt!", "I am and ant and I'm digging a hole"]
+	var words = ["Allons-y!", "I love dirt!", "I am an ant and I'm digging a hole", "Wish I had some cement.", "Why don’t ants have tractors?"]
+	if not queen:
+		words.append("for the Queen!")
+		words.append("When can I go for a pint?")
 	set_speech(words.pick_random(), 3)
 
 

@@ -18,7 +18,7 @@ var rope
 var stone = 0
 var food = 0
 
-const NEW_ANT_COST = 50
+var NEW_ANT_COST = 50
 const NEW_ROOM_COST = 50
 const BLOCKADE_COST = 100
 
@@ -62,6 +62,7 @@ func make_new_ant():
 		return
 		
 	food -= NEW_ANT_COST
+	NEW_ANT_COST *= 2
 	update_gui()
 	var new_ant = ant_scene.instantiate()
 	
