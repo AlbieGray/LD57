@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bbi4fjfl186od" path="res://Scenes/rope/tongue.tscn" id="6_7lihs"]
 [ext_resource type="PackedScene" uid="uid://ba5jguls25ggu" path="res://Scenes/room.tscn" id="6_fgofq"]
 [ext_resource type="AudioStream" uid="uid://bcdttmcaxf4dw" path="res://assets/SFX/AntDeath.wav" id="12_3cx6b"]
-[ext_resource type="PackedScene" uid="uid://cj8ttag7ilaxm" path="res://over.tscn" id="12_wxwew"]
+[ext_resource type="PackedScene" path="res://over.tscn" id="12_wxwew"]
 [ext_resource type="AudioStream" uid="uid://day28efsot30i" path="res://assets/SFX/Click.wav" id="13_wxwew"]
 [ext_resource type="AudioStream" uid="uid://djathlaiywjft" path="res://assets/SFX/MenuTheme.wav" id="14_wxwew"]
 
